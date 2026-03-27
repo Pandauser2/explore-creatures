@@ -9,8 +9,6 @@ const petMultipliers = {
 } as const;
 
 type PetType = keyof typeof petMultipliers;
-const endpoint =
-  "https://script.google.com/macros/s/AKfycbziZsYbOjZiy4LMoUeJkROYVzabHbLtqNCKjn8n1DGI4sCEn_5p_8dakISXhC9vcm1nOw/exec";
 
 export function QuoteForm() {
   const [origin, setOrigin] = useState("");
@@ -48,7 +46,7 @@ export function QuoteForm() {
     setEmailLoading(true);
 
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch("/api/lead", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
