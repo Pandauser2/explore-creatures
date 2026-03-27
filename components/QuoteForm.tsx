@@ -46,23 +46,26 @@ export function QuoteForm() {
     e.preventDefault();
     setEmailMessage("");
     setEmailLoading(true);
-    const formPayload = new URLSearchParams({
-      email: email.trim(),
-      origin: origin.trim(),
-      destination: destination.trim(),
-      pet_type: petType,
-      petType: petType,
-      weight: String(weight),
-      submitted_at: new Date().toISOString()
-    });
 
     try {
-      // Use a simple form-encoded no-cors POST for Google Apps Script compatibility.
-      await fetch(endpoint, {
+      const response = await fetch(endpoint, {
         method: "POST",
-        mode: "no-cors",
-        body: formPayload
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          origin,
+          destination,
+          pet_type: petType,
+          weight
+        })
       });
+
+      if (!response.ok) {
+        throw new Error(`Lead submit failed with status ${response.status}`);
+      }
+
       setEmailMessage("We'll contact you shortly");
     } catch (error) {
       console.error("lead_submit_failed", error);
