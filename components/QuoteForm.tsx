@@ -46,26 +46,42 @@ export function QuoteForm() {
     e.preventDefault();
     setEmailMessage("");
     setEmailLoading(true);
+    const leadPayload = {
+      email,
+      origin,
+      destination,
+      pet_type: petType,
+      weight
+    };
 
     try {
-      await fetch(endpoint, {
+      // First try a standard JSON POST.
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          email,
-          origin,
-          destination,
-          pet_type: petType,
-          weight
-        })
+        body: JSON.stringify(leadPayload)
       });
 
+      if (!response.ok) {
+        throw new Error(`Lead submit failed with status ${response.status}`);
+      }
+
       setEmailMessage("We'll contact you shortly");
-    } catch (error) {
-      console.error("lead_submit_failed", error);
-      setEmailMessage("Something went wrong. Please try again shortly.");
+    } catch (firstError) {
+      try {
+        // Apps Script endpoints often reject CORS preflight; no-cors fallback avoids that.
+        await fetch(endpoint, {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify(leadPayload)
+        });
+        setEmailMessage("We'll contact you shortly");
+      } catch (secondError) {
+        console.error("lead_submit_failed", firstError, secondError);
+        setEmailMessage("Something went wrong. Please try again shortly.");
+      }
     } finally {
       setEmailLoading(false);
     }
