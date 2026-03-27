@@ -9,6 +9,8 @@ const petMultipliers = {
 } as const;
 
 type PetType = keyof typeof petMultipliers;
+const endpoint =
+  "https://script.google.com/macros/s/AKfycbziZsYbOjZiy4LMoUeJkROYVzabHbLtqNCKjn8n1DGI4sCEn_5p_8dakISXhC9vcm1nOw/exec";
 
 export function QuoteForm() {
   const [origin, setOrigin] = useState("");
@@ -20,6 +22,8 @@ export function QuoteForm() {
     null
   );
   const [email, setEmail] = useState("");
+  const [emailLoading, setEmailLoading] = useState(false);
+  const [emailMessage, setEmailMessage] = useState("");
 
   const handleQuoteSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -38,9 +42,33 @@ export function QuoteForm() {
     setLoading(false);
   };
 
-  const handleEmailSubmit = (e: FormEvent) => {
+  const handleEmailSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("email_entered");
+    setEmailMessage("");
+    setEmailLoading(true);
+
+    try {
+      await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          origin,
+          destination,
+          pet_type: petType,
+          weight
+        })
+      });
+
+      setEmailMessage("We'll contact you shortly");
+    } catch (error) {
+      console.error("lead_submit_failed", error);
+      setEmailMessage("Something went wrong. Please try again shortly.");
+    } finally {
+      setEmailLoading(false);
+    }
   };
 
   return (
@@ -111,11 +139,13 @@ export function QuoteForm() {
             />
             <button
               type="submit"
+              disabled={emailLoading}
               className="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-slate-900 ring-1 ring-slate-300"
             >
-              Get exact quote
+              {emailLoading ? "Sending..." : "Get exact quote"}
             </button>
           </form>
+          {emailMessage ? <p className="mt-2 text-xs text-slate-700">{emailMessage}</p> : null}
         </div>
       ) : null}
     </div>
