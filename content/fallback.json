@@ -1,0 +1,25 @@
+{
+  "hero": {
+    "title": "Safe, Stress-Free Pet Travel",
+    "subtitle": "Get a quick estimate in under a minute and move your pet with confidence.",
+    "cta": "Start your estimate"
+  },
+  "services": [
+    {
+      "title": "Flight Booking Support",
+      "description": "Route and airline guidance that fits your pet and timeline.",
+      "icon": "Plane"
+    },
+    {
+      "title": "Document Preparation",
+      "description": "Health, travel, and compliance paperwork made simple.",
+      "icon": "FileCheck"
+    },
+    {
+      "title": "Door-to-Door Coordination",
+      "description": "Pickup, airport coordination, and destination handover support.",
+      "icon": "Truck"
+    }
+  ],
+  "finalCta": "Ready to move your pet? Start with a quick estimate today."
+}
