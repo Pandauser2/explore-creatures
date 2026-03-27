@@ -46,42 +46,27 @@ export function QuoteForm() {
     e.preventDefault();
     setEmailMessage("");
     setEmailLoading(true);
-    const leadPayload = {
-      email,
-      origin,
-      destination,
+    const formPayload = new URLSearchParams({
+      email: email.trim(),
+      origin: origin.trim(),
+      destination: destination.trim(),
       pet_type: petType,
-      weight
-    };
+      petType: petType,
+      weight: String(weight),
+      submitted_at: new Date().toISOString()
+    });
 
     try {
-      // First try a standard JSON POST.
-      const response = await fetch(endpoint, {
+      // Use a simple form-encoded no-cors POST for Google Apps Script compatibility.
+      await fetch(endpoint, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(leadPayload)
+        mode: "no-cors",
+        body: formPayload
       });
-
-      if (!response.ok) {
-        throw new Error(`Lead submit failed with status ${response.status}`);
-      }
-
       setEmailMessage("We'll contact you shortly");
-    } catch (firstError) {
-      try {
-        // Apps Script endpoints often reject CORS preflight; no-cors fallback avoids that.
-        await fetch(endpoint, {
-          method: "POST",
-          mode: "no-cors",
-          body: JSON.stringify(leadPayload)
-        });
-        setEmailMessage("We'll contact you shortly");
-      } catch (secondError) {
-        console.error("lead_submit_failed", firstError, secondError);
-        setEmailMessage("Something went wrong. Please try again shortly.");
-      }
+    } catch (error) {
+      console.error("lead_submit_failed", error);
+      setEmailMessage("Something went wrong. Please try again shortly.");
     } finally {
       setEmailLoading(false);
     }
