@@ -45,8 +45,13 @@ export function QuoteForm() {
     setEmailMessage("");
     setEmailLoading(true);
 
+    const leadUrl =
+      typeof window !== "undefined"
+        ? new URL("/api/lead", window.location.origin).toString()
+        : "/api/lead";
+
     try {
-      const response = await fetch("/api/lead", {
+      const response = await fetch(leadUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
