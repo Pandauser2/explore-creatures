@@ -86,52 +86,54 @@ export function QuoteForm() {
       className="card sm:p-6"
     >
       <h3 className="mb-4 text-xl font-semibold">Get your pet travel estimate 🐾</h3>
-      <form onSubmit={handleQuoteSubmit} className="space-y-3">
-        <label className="block text-sm font-medium text-gray-700">
-          Where is your pet traveling from?
-        </label>
-        <input
-          required
-          value={origin}
-          onChange={(e) => setOrigin(e.target.value)}
-          className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]"
-        />
-        <label className="block text-sm font-medium text-gray-700">Where is your pet going?</label>
-        <input
-          required
-          value={destination}
-          onChange={(e) => setDestination(e.target.value)}
-          className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]"
-        />
-        <label className="block text-sm font-medium text-gray-700">What type of pet?</label>
-        <select
-          value={petType}
-          onChange={(e) => setPetType(e.target.value as PetType)}
-          className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]"
-        >
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-          <option value="other">Other</option>
-        </select>
-        <label className="block text-sm font-medium text-gray-700">Pet weight (kg)</label>
-        <input
-          required
-          min={0}
-          type="number"
-          value={weight}
-          onChange={(e) => setWeight(Number(e.target.value))}
-          className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]"
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="btn-primary w-full text-lg disabled:opacity-70"
-        >
-          {loading ? "Calculating..." : "Calculate estimate"}
-        </button>
-        <p className="mt-2 text-center text-sm text-gray-500">
-          Takes less than 30 seconds • No commitment
-        </p>
+      <form onSubmit={handleQuoteSubmit}>
+        <div className="space-y-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Where is your pet traveling from?
+          </label>
+          <input
+            required
+            value={origin}
+            onChange={(e) => setOrigin(e.target.value)}
+            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]"
+          />
+          <label className="block text-sm font-medium text-gray-700">Where is your pet going?</label>
+          <input
+            required
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
+            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]"
+          />
+          <label className="block text-sm font-medium text-gray-700">What type of pet?</label>
+          <select
+            value={petType}
+            onChange={(e) => setPetType(e.target.value as PetType)}
+            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]"
+          >
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+            <option value="other">Other</option>
+          </select>
+          <label className="block text-sm font-medium text-gray-700">Pet weight (kg)</label>
+          <input
+            required
+            min={0}
+            type="number"
+            value={weight}
+            onChange={(e) => setWeight(Number(e.target.value))}
+            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]"
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-primary w-full text-lg disabled:opacity-70"
+          >
+            {loading ? "Calculating..." : "Calculate estimate"}
+          </button>
+          <p className="mt-2 text-center text-sm text-gray-500">
+            Takes less than 30 seconds • No commitment
+          </p>
+        </div>
       </form>
 
       {priceRange && !loading ? (

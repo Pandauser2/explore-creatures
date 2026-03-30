@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-50 text-gray-900 antialiased;
+  @apply text-gray-900 antialiased;
+  background: linear-gradient(to bottom, #ffffff, #f9fafb);
 }
 
 .card {
@@ -32,4 +33,12 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+button {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
 }

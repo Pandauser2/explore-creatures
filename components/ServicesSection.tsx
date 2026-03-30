@@ -41,24 +41,26 @@ const fallbackIcons = {
 
 export function ServicesSection({ services: _services }: ServicesSectionProps) {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-10">
-      <h2 className="mb-2 text-2xl font-bold text-slate-900">
-        Everything your pet needs for a smooth journey 🐾
-      </h2>
-      <p className="mb-8 text-gray-600">We handle every step so you don’t have to worry.</p>
-      <div className="grid gap-6 md:grid-cols-3">
-        {hardcodedServices.map((service) => {
-          const Icon = service.Icon ?? fallbackIcons.Plane;
-          return (
-            <div key={service.title} className="card cursor-pointer transition hover:shadow-lg">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-[#FF6B35]">
-                <Icon className="h-5 w-5" />
+    <section className="py-20">
+      <div className="max-w-6xl mx-auto px-6">
+        <h2 className="mb-2 text-3xl font-bold md:text-4xl text-slate-900">
+          Everything your pet needs for a smooth journey 🐾
+        </h2>
+        <p className="mb-8 text-lg text-gray-600">We handle every step so you don’t have to worry.</p>
+        <div className="grid gap-6 md:grid-cols-3">
+          {hardcodedServices.map((service) => {
+            const Icon = service.Icon ?? fallbackIcons.Plane;
+            return (
+              <div key={service.title} className="card cursor-pointer transition hover:shadow-lg">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-[#FF6B35]">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-3 text-lg font-semibold text-slate-900">{service.title}</h3>
+                <p className="mt-2 text-sm text-slate-700">{service.description}</p>
               </div>
-              <h3 className="mt-3 text-lg font-semibold text-slate-900">{service.title}</h3>
-              <p className="mt-2 text-sm text-slate-700">{service.description}</p>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

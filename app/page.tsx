@@ -14,28 +14,24 @@ export default async function Page() {
   return (
     <main>
       <Navbar />
-      <section className="py-16">
-        <div className="fade-in">
-          <Hero title={data.hero.title} subtitle={data.hero.subtitle} />
-        </div>
-      </section>
-      <section className="py-16">
-        <div className="fade-in">
-          <ServicesSection services={data.services} />
-        </div>
-      </section>
-      <section className="py-16">
-        <div className="fade-in">
-          <ProcessSection />
-        </div>
-      </section>
-      <section className="py-16">
-        <div className="fade-in">
-          <TestimonialsSection />
-        </div>
-      </section>
-      <FaqSection />
-      <FinalCta text={data.finalCta} />
+      <div className="fade-in">
+        <Hero title={data.hero.title} subtitle={data.hero.subtitle} />
+      </div>
+      <div className="fade-in">
+        <ServicesSection services={data.services} />
+      </div>
+      <div className="fade-in">
+        <ProcessSection />
+      </div>
+      <div className="fade-in">
+        <TestimonialsSection />
+      </div>
+      <div className="fade-in">
+        <FaqSection />
+      </div>
+      <div className="fade-in">
+        <FinalCta text={data.finalCta} />
+      </div>
       <Footer />
     </main>
   );
