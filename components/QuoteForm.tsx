@@ -22,6 +22,7 @@ export function QuoteForm() {
   const [email, setEmail] = useState("");
   const [emailLoading, setEmailLoading] = useState(false);
   const [emailMessage, setEmailMessage] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleQuoteSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -69,6 +70,7 @@ export function QuoteForm() {
         throw new Error(`Lead submit failed with status ${response.status}`);
       }
 
+      setIsSubmitted(true);
       setEmailMessage("We'll contact you shortly");
     } catch (error) {
       console.error("lead_submit_failed", error);
@@ -135,24 +137,32 @@ export function QuoteForm() {
           <p className="mt-2 text-xs text-slate-600">
             Final pricing depends on route, airline rules, crate type, and paperwork.
           </p>
-          <form onSubmit={handleEmailSubmit} className="mt-3 flex gap-2">
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Your email"
-              className="min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm"
-            />
-            <button
-              type="submit"
-              disabled={emailLoading}
-              className="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-slate-900 ring-1 ring-slate-300"
-            >
-              {emailLoading ? "Sending..." : "Get exact quote"}
-            </button>
-          </form>
-          {emailMessage ? <p className="mt-2 text-xs text-slate-700">{emailMessage}</p> : null}
+          {!isSubmitted ? (
+            <>
+              <form onSubmit={handleEmailSubmit} className="mt-3 flex gap-2">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your email"
+                  className="min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                />
+                <button
+                  type="submit"
+                  disabled={emailLoading}
+                  className="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-slate-900 ring-1 ring-slate-300"
+                >
+                  {emailLoading ? "Sending..." : "Get exact quote"}
+                </button>
+              </form>
+              {emailMessage ? <p className="mt-2 text-xs text-slate-700">{emailMessage}</p> : null}
+            </>
+          ) : (
+            <div className="mt-4 rounded-lg bg-green-50 p-4">
+              <p className="font-medium text-green-800">Thanks! We'll contact you shortly.</p>
+            </div>
+          )}
         </div>
       ) : null}
     </div>
