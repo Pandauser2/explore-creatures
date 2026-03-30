@@ -3,5 +3,18 @@
 @tailwind utilities;
 
 body {
-  @apply bg-slate-50 text-slate-900 antialiased;
+  @apply bg-gray-50 text-gray-900 antialiased;
+}
+
+.card {
+  @apply rounded-2xl border border-gray-100 bg-white shadow-sm;
+}
+
+.btn-primary {
+  @apply rounded-full bg-[#FF6B35] px-6 py-3 font-semibold text-white transition hover:opacity-90;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  transition: all 0.2s ease;
 }

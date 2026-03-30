@@ -83,7 +83,7 @@ export function QuoteForm() {
   return (
     <div
       id="quote-form"
-      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+      className="card p-5 sm:p-6"
     >
       <h2 className="mb-4 text-lg font-semibold text-slate-900">Quick Pet Travel Estimate</h2>
       <form onSubmit={handleQuoteSubmit} className="space-y-3">
@@ -122,7 +122,7 @@ export function QuoteForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white disabled:opacity-70"
+          className="btn-primary w-full disabled:opacity-70"
         >
           {loading ? "Calculating..." : "Calculate estimate"}
         </button>
@@ -151,7 +151,7 @@ export function QuoteForm() {
                 <button
                   type="submit"
                   disabled={emailLoading}
-                  className="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-slate-900 ring-1 ring-slate-300"
+                  className="btn-primary disabled:opacity-70"
                 >
                   {emailLoading ? "Sending..." : "Get exact quote"}
                 </button>
