@@ -83,7 +83,7 @@ export function QuoteForm() {
   return (
     <div
       id="quote-form"
-      className="card p-5 sm:p-6"
+      className="card sm:p-6"
     >
       <h2 className="mb-4 text-lg font-semibold text-slate-900">Quick Pet Travel Estimate</h2>
       <form onSubmit={handleQuoteSubmit} className="space-y-3">

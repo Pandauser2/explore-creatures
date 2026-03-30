@@ -35,7 +35,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
         {services.map((service) => {
           const Icon = iconMap[service.icon as keyof typeof iconMap] ?? Package;
           return (
-            <article key={service.title} className="card p-5">
+            <article key={service.title} className="card">
               <Icon className="h-6 w-6 text-slate-900" />
               <h3 className="mt-3 text-lg font-semibold text-slate-900">{service.title}</h3>
               <p className="mt-2 text-sm text-slate-700">{service.description}</p>

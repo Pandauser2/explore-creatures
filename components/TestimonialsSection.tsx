@@ -19,7 +19,7 @@ export function TestimonialsSection() {
       <h2 className="text-2xl font-bold text-slate-900">Loved by pet parents</h2>
       <div className="mt-6 grid gap-4 md:grid-cols-3">
         {testimonials.map((item) => (
-          <article key={item.name} className="card p-5">
+          <article key={item.name} className="card">
             <p className="text-sm text-slate-700">&quot;{item.quote}&quot;</p>
             <p className="mt-3 text-sm font-semibold text-slate-900">{item.name}</p>
           </article>
