@@ -15,8 +15,11 @@ const quicksand = Quicksand({
 });
 
 export const metadata: Metadata = {
-  title: "Explore Creatures | Pet Travel",
-  description: "Fast pet relocation quotes and support."
+  title: "Explore Creatures",
+  description: "Pet travel planning, quotes, and relocation support worldwide.",
+  icons: {
+    icon: "/favicon.ico"
+  }
 };
 
 export default function RootLayout({
