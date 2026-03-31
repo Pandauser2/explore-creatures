@@ -65,26 +65,27 @@ body {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(85vw);
+    transform: translateX(80vw);
   }
 }
 
-.animate-travel {
-  animation: travel 10s linear infinite;
-}
-
-@keyframes pet-bounce {
+/* Vertical bob for process pet only (Hero uses separate @keyframes float). */
+@keyframes process-pet-bob {
   0%,
   100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
   }
 }
 
-.animate-pet-bounce {
-  animation: pet-bounce 2s ease-in-out infinite;
+.animate-travel {
+  animation: travel 18s linear infinite;
+}
+
+.animate-process-pet-bob {
+  animation: process-pet-bob 3s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -94,10 +95,10 @@ body {
 
   .animate-travel {
     animation: none;
-    transform: translateX(12vw);
+    transform: translateX(10vw);
   }
 
-  .animate-pet-bounce {
+  .animate-process-pet-bob {
     animation: none;
   }
 

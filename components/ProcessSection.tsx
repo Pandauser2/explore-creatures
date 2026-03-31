@@ -26,11 +26,11 @@ export function ProcessSection() {
         </h2>
         <p className="mb-10 text-lg text-gray-600">A simple, guided process from start to finish.</p>
         <div className="relative overflow-hidden pb-14 md:pb-16">
-          <div className="pointer-events-none absolute bottom-0 left-0 w-16 md:w-20 animate-travel">
+          <div className="pointer-events-none absolute bottom-[-10px] left-0 w-16 md:w-20 animate-travel">
             <img
               src="/images/pet-travel.svg"
               alt="Pet traveling"
-              className="h-auto w-full animate-pet-bounce"
+              className="h-auto w-full opacity-90 animate-process-pet-bob"
             />
           </div>
           <div className="relative z-10 grid gap-6 md:grid-cols-4">
