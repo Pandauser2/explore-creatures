@@ -5,7 +5,7 @@ export function FounderSection() {
         <div className="grid items-center gap-10 md:grid-cols-2 md:grid-cols-[0.9fr_1.1fr]">
           <div className="flex justify-center md:justify-start">
             <img
-              src="/images/founder.jpg"
+              src="/images/founder.jpeg"
               alt="Founder"
               className="w-full max-w-md rounded-2xl object-cover"
             />
