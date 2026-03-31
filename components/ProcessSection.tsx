@@ -25,10 +25,20 @@ export function ProcessSection() {
           How it works ✈️
         </h2>
         <p className="mb-10 text-lg text-gray-600">A simple, guided process from start to finish.</p>
-        <div className="relative">
-          <div className="grid gap-6 md:grid-cols-4">
+        <div className="relative overflow-hidden pb-14 md:pb-16">
+          <div className="pointer-events-none absolute bottom-0 left-0 w-16 md:w-20 animate-travel">
+            <img
+              src="/images/pet-travel.svg"
+              alt="Pet traveling"
+              className="h-auto w-full animate-pet-bounce"
+            />
+          </div>
+          <div className="relative z-10 grid gap-6 md:grid-cols-4">
             {steps.map((step, idx) => (
-              <div key={step.title} className="p-4 transition hover:-translate-y-1">
+              <div
+                key={step.title}
+                className="relative z-10 p-4 transition hover:-translate-y-1"
+              >
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)] font-bold text-white">
                   {idx + 1}
                 </div>

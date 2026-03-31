@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 48" fill="none" aria-hidden="true">
+  <!-- Flat side-facing dog: body, head, ear, face, legs, tail -->
+  <ellipse cx="34" cy="28" rx="24" ry="17" fill="#FFB84D" />
+  <ellipse cx="62" cy="24" rx="15" ry="13" fill="#FFB84D" />
+  <ellipse cx="74" cy="18" rx="6" ry="5" fill="#3399FF" />
+  <circle cx="70" cy="20" r="2.5" fill="#1e293b" />
+  <ellipse cx="78" cy="22" rx="4" ry="3" fill="#1e293b" />
+  <rect x="12" y="34" width="7" height="11" rx="3.5" fill="#FFB84D" transform="rotate(-10 15.5 39.5)" />
+  <rect x="26" y="36" width="7" height="9" rx="3.5" fill="#FFB84D" />
+  <rect x="40" y="34" width="7" height="11" rx="3.5" fill="#FFB84D" transform="rotate(8 43.5 39.5)" />
+  <path d="M8 26 Q4 18 10 14 Q14 20 12 28 Z" fill="#FFB84D" />
+  <ellipse cx="52" cy="40" rx="5" ry="4" fill="#E8A088" />
+</svg>

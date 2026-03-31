@@ -80,109 +80,108 @@ export function QuoteForm() {
   };
 
   return (
-    <div
-      id="quote-form"
-      className="rounded-3xl bg-white p-6 shadow-xl md:p-8"
-    >
-      <h3 className="mb-4 text-xl font-extrabold tracking-tight">
-        Get your pet travel estimate 🐾
-      </h3>
-      <form onSubmit={handleQuoteSubmit}>
-        <div className="space-y-4">
-          <label className="block text-sm font-medium text-gray-700">
-            Where is your pet traveling from?
-          </label>
-          <input
-            required
-            value={origin}
-            onChange={(e) => setOrigin(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-          />
-          <label className="block text-sm font-medium text-gray-700">Where is your pet going?</label>
-          <input
-            required
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-          />
-          <label className="block text-sm font-medium text-gray-700">What type of pet?</label>
-          <select
-            value={petType}
-            onChange={(e) => setPetType(e.target.value as PetType)}
-            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-          >
-            <option value="dog">Dog</option>
-            <option value="cat">Cat</option>
-            <option value="other">Other</option>
-          </select>
-          <label className="block text-sm font-medium text-gray-700">Pet weight (kg)</label>
-          <input
-            required
-            min={0}
-            type="number"
-            value={weight}
-            onChange={(e) => setWeight(Number(e.target.value))}
-            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-          />
-          <button
-            type="submit"
-            disabled={loading}
-            className="btn-primary w-full text-lg disabled:opacity-70"
-          >
-            {loading ? "Working…" : "Calculate estimate"}
-          </button>
-          {loading ? (
-            <p className="mt-2 text-center text-gray-600 animate-pulse">
-              Calculating travel plan for your pet 🐾...
-            </p>
-          ) : (
-            <p className="mt-2 text-center text-sm text-gray-500">
-              Takes less than 30 seconds • No commitment
-            </p>
-          )}
-        </div>
-      </form>
-
-      {priceRange && !loading ? (
-        <div className="mt-4 rounded-2xl bg-gray-50 p-5">
-          <p className="text-sm text-slate-700">Estimated price range</p>
-          <p className="text-2xl font-bold text-slate-900">
-            ${priceRange.min} - ${priceRange.max}
-          </p>
-          <p className="mt-2 text-xs text-slate-600">
-            Final pricing depends on route, airline rules, crate type, and paperwork.
-          </p>
-          {!isSubmitted ? (
-            <>
-              <p className="mb-2 text-sm text-gray-600">Want an exact quote? Enter your email:</p>
-              <form onSubmit={handleEmailSubmit} className="mt-3 flex gap-2">
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your email"
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                />
-                <button
-                  type="submit"
-                  disabled={emailLoading}
-                  className="btn-primary disabled:opacity-70"
-                >
-                  {emailLoading ? "Sending..." : "Get exact quote"}
-                </button>
-              </form>
-              {emailMessage ? <p className="mt-2 text-xs text-slate-700">{emailMessage}</p> : null}
-            </>
-          ) : (
-            <div className="mt-4 rounded-2xl bg-green-50 p-4 text-center">
-              <p className="font-medium text-green-800">
-                You&apos;re all set! We&apos;ll reach out shortly 🐾
+    <div id="quote-form" className="w-full">
+      <div className="bg-white rounded-3xl p-6 shadow-xl md:p-8">
+        <h3 className="mb-4 text-xl font-extrabold tracking-tight">
+          Get your pet travel estimate 🐾
+        </h3>
+        <form onSubmit={handleQuoteSubmit}>
+          <div className="space-y-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Where is your pet traveling from?
+            </label>
+            <input
+              required
+              value={origin}
+              onChange={(e) => setOrigin(e.target.value)}
+              className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+            />
+            <label className="block text-sm font-medium text-gray-700">Where is your pet going?</label>
+            <input
+              required
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+              className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+            />
+            <label className="block text-sm font-medium text-gray-700">What type of pet?</label>
+            <select
+              value={petType}
+              onChange={(e) => setPetType(e.target.value as PetType)}
+              className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+            >
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+              <option value="other">Other</option>
+            </select>
+            <label className="block text-sm font-medium text-gray-700">Pet weight (kg)</label>
+            <input
+              required
+              min={0}
+              type="number"
+              value={weight}
+              onChange={(e) => setWeight(Number(e.target.value))}
+              className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+            />
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-primary w-full text-lg disabled:opacity-70"
+            >
+              {loading ? "Working…" : "Calculate estimate"}
+            </button>
+            {loading ? (
+              <p className="mt-2 text-center text-gray-600 animate-pulse">
+                Calculating travel plan for your pet 🐾...
               </p>
-            </div>
-          )}
-        </div>
-      ) : null}
+            ) : (
+              <p className="mt-2 text-center text-sm text-gray-500">
+                Takes less than 30 seconds • No commitment
+              </p>
+            )}
+          </div>
+        </form>
+
+        {priceRange && !loading ? (
+          <div className="mt-4 rounded-2xl bg-gray-50 p-5">
+            <p className="text-sm text-slate-700">Estimated price range</p>
+            <p className="text-2xl font-bold text-slate-900">
+              ${priceRange.min} - ${priceRange.max}
+            </p>
+            <p className="mt-2 text-xs text-slate-600">
+              Final pricing depends on route, airline rules, crate type, and paperwork.
+            </p>
+            {!isSubmitted ? (
+              <>
+                <p className="mb-2 text-sm text-gray-600">Want an exact quote? Enter your email:</p>
+                <form onSubmit={handleEmailSubmit} className="mt-3 flex gap-2">
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email"
+                    className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                  />
+                  <button
+                    type="submit"
+                    disabled={emailLoading}
+                    className="btn-primary disabled:opacity-70"
+                  >
+                    {emailLoading ? "Sending..." : "Get exact quote"}
+                  </button>
+                </form>
+                {emailMessage ? <p className="mt-2 text-xs text-slate-700">{emailMessage}</p> : null}
+              </>
+            ) : (
+              <div className="mt-4 rounded-2xl bg-green-50 p-4 text-center">
+                <p className="font-medium text-green-800">
+                  You&apos;re all set! We&apos;ll reach out shortly 🐾
+                </p>
+              </div>
+            )}
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }
