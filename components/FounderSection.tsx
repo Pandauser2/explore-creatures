@@ -11,7 +11,7 @@ export function FounderSection() {
             />
           </div>
           <div>
-            <h2 className="mb-4 text-2xl font-bold md:text-3xl">
+            <h2 className="mb-4 text-2xl font-extrabold tracking-tight md:text-3xl">
               Built by someone who’s been through it 🐾
             </h2>
             <p className="mb-4 text-gray-600">

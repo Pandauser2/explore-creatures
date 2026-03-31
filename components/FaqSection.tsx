@@ -35,7 +35,9 @@ export function FaqSection() {
   return (
     <section className="py-20">
       <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-slate-900">FAQ</h2>
+        <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
+          FAQ
+        </h2>
         <div className="mt-5 space-y-3">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;

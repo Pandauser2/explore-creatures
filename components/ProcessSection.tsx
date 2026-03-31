@@ -32,7 +32,9 @@ export function ProcessSection() {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)] font-bold text-white">
                   {idx + 1}
                 </div>
-                <h3 className="text-base font-semibold text-slate-900">{step.title}</h3>
+                <h3 className="text-base font-extrabold tracking-tight text-slate-900">
+                  {step.title}
+                </h3>
                 <p className="mt-2 text-sm text-slate-600">{step.text}</p>
               </div>
             ))}

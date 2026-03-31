@@ -82,9 +82,11 @@ export function QuoteForm() {
   return (
     <div
       id="quote-form"
-      className="card sm:p-6"
+      className="rounded-3xl bg-white p-6 shadow-xl md:p-8"
     >
-      <h3 className="mb-4 text-xl font-semibold">Get your pet travel estimate 🐾</h3>
+      <h3 className="mb-4 text-xl font-extrabold tracking-tight">
+        Get your pet travel estimate 🐾
+      </h3>
       <form onSubmit={handleQuoteSubmit}>
         <div className="space-y-4">
           <label className="block text-sm font-medium text-gray-700">
@@ -127,11 +129,17 @@ export function QuoteForm() {
             disabled={loading}
             className="btn-primary w-full text-lg disabled:opacity-70"
           >
-            {loading ? "Calculating..." : "Calculate estimate"}
+            {loading ? "Working…" : "Calculate estimate"}
           </button>
-          <p className="mt-2 text-center text-sm text-gray-500">
-            Takes less than 30 seconds • No commitment
-          </p>
+          {loading ? (
+            <p className="mt-2 text-center text-gray-600 animate-pulse">
+              Calculating travel plan for your pet 🐾...
+            </p>
+          ) : (
+            <p className="mt-2 text-center text-sm text-gray-500">
+              Takes less than 30 seconds • No commitment
+            </p>
+          )}
         </div>
       </form>
 

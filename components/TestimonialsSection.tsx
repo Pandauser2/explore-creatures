@@ -34,7 +34,10 @@ export function TestimonialsSection() {
         </p>
         <div className="grid gap-6 md:grid-cols-3 text-center">
           {testimonials.map((item) => (
-            <article key={item.name} className="card">
+            <article
+              key={item.name}
+              className="rounded-3xl bg-white p-6 shadow-md"
+            >
               <div className="mb-3 flex items-center justify-center gap-3">
                 <div className="text-2xl">{item.avatar}</div>
                 <div>

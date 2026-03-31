@@ -3,13 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --primary: #ffb84d;
-  --accent: #3399ff;
+  --primary: #ffb84d; /* mustard */
+  --accent: #3399ff; /* sky blue */
+  --bg-soft: #fff7ed; /* warm off-white */
 }
 
 body {
   @apply text-gray-900 antialiased;
-  background: linear-gradient(to bottom, #ffffff, #f9fafb);
+  background: var(--bg-soft);
 }
 
 .card {
@@ -17,7 +18,7 @@ body {
 }
 
 .btn-primary {
-  background-color: var(--primary);
+  background-color: var(--accent);
   color: white;
   border-radius: 999px;
   @apply px-6 py-3 font-semibold transition hover:opacity-90;
@@ -63,12 +64,23 @@ body {
   .float {
     animation: none;
   }
+
+  button:hover:not(:disabled),
+  a.btn-primary:hover {
+    transform: none;
+  }
 }
 
 button {
   transition: all 0.2s ease;
 }
 
-button:hover {
-  transform: translateY(-1px);
+button:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.04);
+  transition: all 0.2s ease;
+}
+
+a.btn-primary:hover {
+  transform: translateY(-2px) scale(1.04);
+  transition: all 0.2s ease;
 }

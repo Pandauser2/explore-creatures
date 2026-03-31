@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { QuoteForm } from "@/components/QuoteForm";
 
 type HeroProps = {
@@ -17,7 +19,10 @@ export function Hero({ title, subtitle }: HeroProps) {
               </h1>
               <p className="mt-4 max-w-xl text-lg text-gray-800">{subtitle}</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <a href="#quote-form" className="btn-primary inline-flex items-center">
+                <a
+                  href="#quote-form"
+                  className="inline-flex items-center rounded-full bg-[var(--accent)] px-6 py-3 font-semibold text-white transition hover:opacity-90"
+                >
                   Get your estimate
                 </a>
               </div>
@@ -28,11 +33,16 @@ export function Hero({ title, subtitle }: HeroProps) {
               </div>
             </div>
             <div className="order-1 md:order-2">
-              <img
-                src="/images/hero-illustration.png"
-                alt="Pet travel illustration"
-                className="float mx-auto w-full max-w-md"
-              />
+              <div className="flex justify-center">
+                <Image
+                  src="/images/hero-illustration.png"
+                  alt="Pet travel illustration"
+                  width={500}
+                  height={500}
+                  priority
+                  className="float mx-auto w-full max-w-md"
+                />
+              </div>
             </div>
           </div>
         </div>

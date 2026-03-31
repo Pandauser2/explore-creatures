@@ -38,10 +38,12 @@ export function ServicesSection({ services: _services }: ServicesSectionProps) {
         <div className="grid gap-6 md:grid-cols-3">
           {hardcodedServices.map((service) => (
             <div key={service.title} className="card transition hover:shadow-lg">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-2xl">
-                {service.emoji}
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-orange-100">
+                <span className="text-2xl">{service.emoji}</span>
               </div>
-              <h3 className="mt-3 text-lg font-semibold text-slate-900">{service.title}</h3>
+              <h3 className="mt-3 text-lg font-extrabold tracking-tight text-slate-900">
+                {service.title}
+              </h3>
               <p className="mt-2 text-sm text-slate-700">{service.description}</p>
             </div>
           ))}
