@@ -1,19 +1,13 @@
 export function Hero() {
   return (
-    <section className="relative h-[85vh] w-full overflow-hidden">
-      <img
-        src="/images/hero.png"
-        alt="Pet travel illustration"
-        className="hero-image absolute inset-0 h-full w-full object-cover"
-      />
-      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/40 via-black/10 to-transparent" />
-      <div className="relative z-10 mx-auto flex h-full max-w-6xl items-center px-6">
-        <div className="max-w-xl text-white">
-          <h1 className="text-4xl font-extrabold leading-tight md:text-6xl">
+    <section className="w-full bg-[#FFF7E6] py-20">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-6 md:grid-cols-2">
+        <div>
+          <h1 className="text-4xl font-extrabold leading-tight text-gray-900 md:text-5xl">
             Move your pet internationally without stress 🐾
           </h1>
-          <p className="mt-4 text-lg text-white/90 md:text-xl">
-            We handle airlines, paperwork, and country rules end-to-end.
+          <p className="mt-4 text-lg text-gray-600">
+            We handle airlines, paperwork, and country-specific travel rules end-to-end.
           </p>
           <a
             href="#quote-form"
@@ -21,6 +15,16 @@ export function Hero() {
           >
             Get your estimate
           </a>
+          <p className="mt-4 text-sm text-gray-500">
+            Trusted by pet parents moving across 50+ countries
+          </p>
+        </div>
+        <div className="flex justify-center">
+          <img
+            src="/images/hero.png"
+            alt="Pet travel illustration"
+            className="w-full max-w-md motion-reduce:animate-none animate-[floatSlow_6s_ease-in-out_infinite]"
+          />
         </div>
       </div>
     </section>
