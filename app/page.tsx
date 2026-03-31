@@ -1,6 +1,7 @@
 import { FaqSection } from "@/components/FaqSection";
 import { FinalCta } from "@/components/FinalCta";
 import { Footer } from "@/components/Footer";
+import { FounderSection } from "@/components/FounderSection";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
 import { ProcessSection } from "@/components/ProcessSection";
@@ -22,6 +23,9 @@ export default async function Page() {
       </div>
       <div className="fade-in">
         <ProcessSection />
+      </div>
+      <div className="fade-in">
+        <FounderSection />
       </div>
       <div className="fade-in">
         <TestimonialsSection />
