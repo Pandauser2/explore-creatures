@@ -24,9 +24,11 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <section className="py-20">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="mb-2 text-3xl font-bold md:text-4xl">Loved by pet parents 🐶</h2>
+    <section className="bg-yellow-50 py-20">
+      <div className="mx-auto max-w-6xl px-6">
+        <h2 className="mb-2 text-3xl font-extrabold tracking-tight md:text-4xl">
+          Loved by pet parents 🐶
+        </h2>
         <p className="mb-8 text-lg text-gray-600">
           Real stories from people who trusted us with their pets.
         </p>

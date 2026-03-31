@@ -26,7 +26,6 @@ export function QuoteForm() {
 
   const handleQuoteSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("quote_submitted");
 
     setLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -95,20 +94,20 @@ export function QuoteForm() {
             required
             value={origin}
             onChange={(e) => setOrigin(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]"
+            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
           />
           <label className="block text-sm font-medium text-gray-700">Where is your pet going?</label>
           <input
             required
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]"
+            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
           />
           <label className="block text-sm font-medium text-gray-700">What type of pet?</label>
           <select
             value={petType}
             onChange={(e) => setPetType(e.target.value as PetType)}
-            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]"
+            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
           >
             <option value="dog">Dog</option>
             <option value="cat">Cat</option>
@@ -121,7 +120,7 @@ export function QuoteForm() {
             type="number"
             value={weight}
             onChange={(e) => setWeight(Number(e.target.value))}
-            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]"
+            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
           />
           <button
             type="submit"
@@ -155,7 +154,7 @@ export function QuoteForm() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email"
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF6B35]"
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
                 />
                 <button
                   type="submit"

@@ -19,15 +19,17 @@ const steps = [
 
 export function ProcessSection() {
   return (
-    <section className="py-20">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="mb-2 text-3xl font-bold md:text-4xl">How it works ✈️</h2>
+    <section className="bg-blue-50 py-20">
+      <div className="mx-auto max-w-6xl px-6">
+        <h2 className="mb-2 text-3xl font-extrabold tracking-tight md:text-4xl">
+          How it works ✈️
+        </h2>
         <p className="mb-10 text-lg text-gray-600">A simple, guided process from start to finish.</p>
         <div className="relative">
           <div className="grid gap-6 md:grid-cols-4">
             {steps.map((step, idx) => (
               <div key={step.title} className="p-4 transition hover:-translate-y-1">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#FF6B35] font-bold text-white">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)] font-bold text-white">
                   {idx + 1}
                 </div>
                 <h3 className="text-base font-semibold text-slate-900">{step.title}</h3>
