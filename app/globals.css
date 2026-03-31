@@ -79,7 +79,7 @@ h4 {
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  animation: travelAcross 12s linear infinite;
+  animation: travelAcross 14s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
