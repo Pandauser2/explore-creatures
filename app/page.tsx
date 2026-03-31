@@ -16,9 +16,11 @@ export default async function Page() {
 
   return (
     <main>
-      <Navbar />
-      <div className="fade-in">
-        <Hero />
+      <div className="relative">
+        <Navbar />
+        <div className="fade-in">
+          <Hero />
+        </div>
       </div>
       <div className="py-4 text-center text-sm text-gray-600">
         Trusted by pet parents moving across 50+ countries

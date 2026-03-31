@@ -53,7 +53,25 @@ h4 {
   }
 }
 
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.hero-image {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .hero-image {
+    animation: none;
+  }
+
   button:hover:not(:disabled),
   a.btn-primary:hover {
     transform: none;

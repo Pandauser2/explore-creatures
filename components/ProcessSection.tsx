@@ -21,7 +21,7 @@ const steps = [
 
 export function ProcessSection() {
   return (
-    <section className="bg-blue-50 py-20">
+    <section id="how-it-works" className="bg-blue-50 py-20">
       <div className="mx-auto max-w-6xl px-6">
         <h2 className="mb-2 flex flex-wrap items-center gap-3 text-3xl font-extrabold tracking-tight md:text-4xl">
           <IconCircle64 tone="mint">
