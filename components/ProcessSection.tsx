@@ -31,12 +31,6 @@ export function ProcessSection() {
         </h2>
         <p className="mb-10 text-lg text-gray-600">A simple, guided process from start to finish.</p>
         <div className="relative overflow-hidden pt-16 pb-14 md:pb-16">
-          <div className="pointer-events-none absolute left-0 top-1/2 z-0 w-full -translate-y-1/2 border-0 border-t-2 border-dashed border-gray-300" />
-          <img
-            src="/images/process-pet.gif"
-            alt="Pet traveling"
-            className="travel-pet pointer-events-none z-10 w-16"
-          />
           <div className="relative z-20 grid gap-6 md:grid-cols-4">
             {steps.map((step, idx) => (
               <div
@@ -52,6 +46,13 @@ export function ProcessSection() {
                 <p className="mt-2 text-sm text-slate-600">{step.text}</p>
               </div>
             ))}
+          </div>
+          <div className="relative mt-8 h-16 w-full md:h-20">
+            <img
+              src="/images/process-pet.gif"
+              alt="Pet traveling"
+              className="travel-pet pointer-events-none w-16"
+            />
           </div>
         </div>
       </div>
