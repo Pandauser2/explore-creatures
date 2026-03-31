@@ -18,7 +18,10 @@ export const metadata: Metadata = {
   title: "Explore Creatures",
   description: "Pet travel planning, quotes, and relocation support worldwide.",
   icons: {
-    icon: "/favicon.ico"
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.png", type: "image/png" }
+    ]
   }
 };
 
@@ -29,6 +32,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${nunito.variable} ${quicksand.variable}`}>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
+      </head>
       <body className={nunito.className}>{children}</body>
     </html>
   );
