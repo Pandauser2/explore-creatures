@@ -4,13 +4,7 @@ import { Footer } from "@/components/Footer";
 import { FounderSection } from "@/components/FounderSection";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
-import {
-  IconCircle64,
-  SvgCheck,
-  SvgGlobe,
-  SvgPaw,
-  SvgPlane
-} from "@/components/PastelIcons";
+import { IconCircle64, SvgCheck, SvgGlobe, SvgPaw, SvgPlane } from "@/components/PastelIcons";
 import { ProcessSection } from "@/components/ProcessSection";
 import { QuoteForm } from "@/components/QuoteForm";
 import { ServicesSection } from "@/components/ServicesSection";

@@ -12,6 +12,23 @@ const petMultipliers = {
 
 type PetType = keyof typeof petMultipliers;
 
+function leadFailureMessage(status: number, serverError?: string): string {
+  if (status === 400 || serverError === "Invalid input") {
+    return "Please check your route details and pet weight, then try again.";
+  }
+  if (
+    status === 502 ||
+    (serverError?.includes("Upstream") ?? false) ||
+    serverError === "Apps Script rejected the payload"
+  ) {
+    return "We couldn't save your request just now. Please try again in a few minutes.";
+  }
+  if (status >= 500) {
+    return "Quote signup is temporarily unavailable. Please try again later or contact us directly.";
+  }
+  return "Something went wrong. Please try again shortly.";
+}
+
 export function QuoteForm() {
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
@@ -67,8 +84,25 @@ export function QuoteForm() {
         })
       });
 
+      let data: { ok?: boolean; error?: string } = {};
+      const raw = await response.text();
+      if (raw) {
+        try {
+          data = JSON.parse(raw) as { ok?: boolean; error?: string };
+        } catch {
+          /* non-JSON body */
+        }
+      }
+
       if (!response.ok) {
-        throw new Error(`Lead submit failed with status ${response.status}`);
+        console.error("lead_submit_failed", response.status, data.error);
+        setEmailMessage(leadFailureMessage(response.status, data.error));
+        return;
+      }
+
+      if (data.ok === false) {
+        setEmailMessage(leadFailureMessage(response.status, data.error));
+        return;
       }
 
       setIsSubmitted(true);

@@ -10,10 +10,7 @@ export async function OPTIONS() {
 export async function POST(request: Request) {
   const WEB_APP_URL = process.env.APPS_SCRIPT_LEAD_URL;
   if (!WEB_APP_URL) {
-    return new Response(
-      JSON.stringify({ ok: false, error: "Server misconfigured" }),
-      { status: 500 }
-    );
+    return Response.json({ ok: false, error: "Server misconfigured" }, { status: 500 });
   }
 
   try {
@@ -22,7 +19,13 @@ export async function POST(request: Request) {
     const origin = body.origin;
     const destination = body.destination;
     const pet_type = body.pet_type;
-    const weight = body.weight;
+    const rawWeight = body.weight;
+    const weight =
+      typeof rawWeight === "number"
+        ? rawWeight
+        : typeof rawWeight === "string"
+          ? Number.parseFloat(rawWeight)
+          : NaN;
 
     if (
       typeof email !== "string" ||
@@ -33,7 +36,6 @@ export async function POST(request: Request) {
       !destination.trim() ||
       typeof pet_type !== "string" ||
       !ALLOWED_PET_TYPES.includes(pet_type as (typeof ALLOWED_PET_TYPES)[number]) ||
-      typeof weight !== "number" ||
       !Number.isFinite(weight)
     ) {
       return Response.json({ ok: false, error: "Invalid input" }, { status: 400 });
