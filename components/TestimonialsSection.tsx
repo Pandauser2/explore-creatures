@@ -11,10 +11,10 @@ const testimonials: {
   {
     avatar: "dog",
     tone: "lavender",
-    name: "Priya S.",
+    name: "Rohit M.",
     route: "India → UK",
     quote:
-      "We moved our dog Bruno from Delhi to London. The paperwork was overwhelming, but everything was handled smoothly—from health certs to the flight crate."
+      "Moved our Labrador Bruno from Mumbai to London. The airline paperwork was complicated, but everything was handled smoothly—from health certs to the flight crate."
   },
   {
     avatar: "cat",
@@ -22,7 +22,7 @@ const testimonials: {
     name: "Arun P.",
     route: "Bangalore → Singapore",
     quote:
-      "Our cat Miso needed clearances we didn’t understand. They walked us through each step and kept us updated until she landed safely."
+      "Our cat Miso needed clearances we didn’t understand. They walked us through each step and kept us updated until she landed safely in Singapore."
   },
   {
     avatar: "paw",
@@ -30,7 +30,7 @@ const testimonials: {
     name: "Lina K.",
     route: "Jakarta → Germany",
     quote:
-      "Relocating our rescue Luna felt impossible with EU rules. They coordinated airlines and documents so we could focus on settling in."
+      "Relocating our rescue dog Luna from Jakarta to Germany felt impossible with EU rules. They coordinated airlines and documents so we could focus on settling in."
   }
 ];
 

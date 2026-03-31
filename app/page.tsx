@@ -20,6 +20,9 @@ export default async function Page() {
       <div className="fade-in">
         <Hero />
       </div>
+      <div className="py-4 text-center text-sm text-gray-600">
+        Trusted by pet parents moving across 50+ countries
+      </div>
       <div className="fade-in">
         <section className="bg-[var(--bg-soft)] py-16">
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 md:grid-cols-2">

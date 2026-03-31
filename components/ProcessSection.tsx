@@ -31,13 +31,11 @@ export function ProcessSection() {
         </h2>
         <p className="mb-10 text-lg text-gray-600">A simple, guided process from start to finish.</p>
         <div className="relative overflow-hidden pb-14 md:pb-16">
-          <div className="pointer-events-none absolute left-0 top-[2.75rem] z-[1] w-16 opacity-70 md:top-[2.875rem] md:w-20 animate-travel">
-            <img
-              src="/images/pet-travel.svg"
-              alt="Pet traveling"
-              className="h-auto w-full animate-process-pet-bob"
-            />
-          </div>
+          <img
+            src="/images/process-pet.gif"
+            alt="Pet traveling"
+            className="pointer-events-none absolute left-2 top-[2.75rem] z-[1] w-16 -translate-y-1/2 opacity-[0.8] md:left-4 md:top-[3rem] md:w-20"
+          />
           <div className="relative z-10 grid gap-6 md:grid-cols-4">
             {steps.map((step, idx) => (
               <div

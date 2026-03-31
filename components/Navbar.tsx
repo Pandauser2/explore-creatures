@@ -5,7 +5,10 @@ export function Navbar() {
         <a href="#" className="text-lg font-bold text-slate-900">
           Explore Creatures
         </a>
-        <a href="#quote-form" className="btn-primary inline-flex items-center">
+        <a
+          href="#quote-form"
+          className="inline-flex items-center rounded-full border border-gray-300 px-6 py-3 font-semibold text-gray-700 transition hover:bg-gray-50"
+        >
           Check your pet&apos;s travel cost
         </a>
       </div>

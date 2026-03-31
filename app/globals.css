@@ -53,64 +53,7 @@ h4 {
   }
 }
 
-@keyframes float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-.float {
-  animation: float 4s ease-in-out infinite;
-}
-
-@keyframes travel {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(80vw);
-  }
-}
-
-/* Vertical bob for process pet only (Hero uses separate @keyframes float). */
-@keyframes process-pet-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-3px);
-  }
-}
-
-.animate-travel {
-  animation: travel 18s linear infinite;
-}
-
-.animate-process-pet-bob {
-  animation: process-pet-bob 3s ease-in-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .float {
-    animation: none;
-  }
-
-  .animate-travel {
-    animation: none;
-    transform: translateX(10vw);
-  }
-
-  .animate-process-pet-bob {
-    animation: none;
-  }
-
   button:hover:not(:disabled),
   a.btn-primary:hover {
     transform: none;

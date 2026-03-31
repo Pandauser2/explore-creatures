@@ -155,7 +155,7 @@ export function QuoteForm() {
 
   return (
     <div id="quote-form" className="w-full">
-      <div className="relative rounded-3xl bg-white p-6 shadow-xl md:p-8">
+      <div className="relative rounded-3xl border border-gray-100 bg-white p-8 shadow-xl">
         <h3 className="mb-4 flex flex-wrap items-center gap-3 text-xl font-extrabold tracking-tight">
           <IconCircle64 tone="mint">
             <SvgPaw />
@@ -221,20 +221,20 @@ export function QuoteForm() {
 
           {loading ? (
             <div
-              className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 rounded-2xl bg-white/93 px-4 backdrop-blur-sm"
+              className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-2xl bg-white/93 px-4 backdrop-blur-sm"
               role="status"
               aria-live="polite"
             >
-              <img
-                src="/images/estimate-van.gif"
-                alt=""
-                width={128}
-                height={80}
-                className="h-20 w-auto max-w-full object-contain md:h-24"
-              />
-              <p className="text-center text-sm text-gray-600">
-                Calculating travel plan for your pet…
-              </p>
+              <div className="flex flex-col items-center justify-center py-6">
+                <img
+                  src="/images/loading-pet.gif"
+                  alt="Preparing your pet travel plan"
+                  className="mb-4 h-20 w-20 object-contain"
+                />
+                <p className="text-sm text-gray-600">
+                  Preparing your pet&apos;s travel plan 🐾...
+                </p>
+              </div>
             </div>
           ) : null}
         </div>
