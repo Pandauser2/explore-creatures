@@ -1,3 +1,5 @@
+import { IconCircle64, SvgPaw } from "@/components/PastelIcons";
+
 export function FounderSection() {
   return (
     <section className="bg-gray-50 py-20">
@@ -11,8 +13,11 @@ export function FounderSection() {
             />
           </div>
           <div>
-            <h2 className="mb-4 text-2xl font-extrabold tracking-tight md:text-3xl">
-              Built by someone who’s been through it 🐾
+            <h2 className="mb-4 flex flex-wrap items-center gap-3 text-2xl font-extrabold tracking-tight md:text-3xl">
+              <IconCircle64 tone="lavender">
+                <SvgPaw />
+              </IconCircle64>
+              Built by someone who’s been through it
             </h2>
             <p className="mb-4 text-gray-600">
               I started this after struggling to relocate my own pet internationally. The process

@@ -1,3 +1,5 @@
+import { IconCircle64, SvgPlane } from "@/components/PastelIcons";
+
 const steps = [
   {
     title: "Share your details",
@@ -21,8 +23,11 @@ export function ProcessSection() {
   return (
     <section className="bg-blue-50 py-20">
       <div className="mx-auto max-w-6xl px-6">
-        <h2 className="mb-2 text-3xl font-extrabold tracking-tight md:text-4xl">
-          How it works ✈️
+        <h2 className="mb-2 flex flex-wrap items-center gap-3 text-3xl font-extrabold tracking-tight md:text-4xl">
+          <IconCircle64 tone="mint">
+            <SvgPlane />
+          </IconCircle64>
+          How it works
         </h2>
         <p className="mb-10 text-lg text-gray-600">A simple, guided process from start to finish.</p>
         <div className="relative overflow-hidden pb-14 md:pb-16">

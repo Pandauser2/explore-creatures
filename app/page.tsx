@@ -4,6 +4,13 @@ import { Footer } from "@/components/Footer";
 import { FounderSection } from "@/components/FounderSection";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
+import {
+  IconCircle64,
+  SvgCheck,
+  SvgGlobe,
+  SvgPaw,
+  SvgPlane
+} from "@/components/PastelIcons";
 import { ProcessSection } from "@/components/ProcessSection";
 import { QuoteForm } from "@/components/QuoteForm";
 import { ServicesSection } from "@/components/ServicesSection";
@@ -20,21 +27,39 @@ export default async function Page() {
         <Hero />
       </div>
       <div className="fade-in">
-        <section className="py-16 bg-[var(--bg-soft)]">
+        <section className="bg-[var(--bg-soft)] py-16">
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 md:grid-cols-2">
             {/* Left: Value prop */}
             <div>
-              <h1 className="mb-4 text-3xl font-extrabold md:text-4xl">
-                Move your pet internationally without stress 🐾
+              <h1 className="mb-4 flex flex-wrap items-center gap-3 text-3xl font-extrabold md:text-4xl">
+                <IconCircle64 tone="coral">
+                  <SvgPaw />
+                </IconCircle64>
+                Move your pet internationally without stress
               </h1>
               <p className="mb-6 text-gray-600">
                 Trusted by pet parents across 50+ countries. We handle airlines, paperwork, and
                 complex travel rules end-to-end.
               </p>
-              <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                <span>✅ 100+ relocations</span>
-                <span>🌍 50+ countries</span>
-                <span>✈️ Airline compliant</span>
+              <div className="flex flex-col gap-3 text-sm text-gray-600 sm:flex-row sm:flex-wrap sm:items-center">
+                <span className="inline-flex items-center gap-2">
+                  <IconCircle64 tone="lavender">
+                    <SvgCheck />
+                  </IconCircle64>
+                  100+ relocations
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <IconCircle64 tone="coral">
+                    <SvgGlobe />
+                  </IconCircle64>
+                  50+ countries
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <IconCircle64 tone="mint">
+                    <SvgPlane />
+                  </IconCircle64>
+                  Airline compliant
+                </span>
               </div>
             </div>
             {/* Right: Form */}

@@ -2,6 +2,8 @@
 
 import { FormEvent, useState } from "react";
 
+import { IconCircle64, SvgPaw } from "@/components/PastelIcons";
+
 const petMultipliers = {
   dog: 1.2,
   cat: 1,
@@ -81,65 +83,89 @@ export function QuoteForm() {
 
   return (
     <div id="quote-form" className="w-full">
-      <div className="bg-white rounded-3xl p-6 shadow-xl md:p-8">
-        <h3 className="mb-4 text-xl font-extrabold tracking-tight">
-          Get your pet travel estimate 🐾
+      <div className="relative rounded-3xl bg-white p-6 shadow-xl md:p-8">
+        <h3 className="mb-4 flex flex-wrap items-center gap-3 text-xl font-extrabold tracking-tight">
+          <IconCircle64 tone="mint">
+            <SvgPaw />
+          </IconCircle64>
+          Get your pet travel estimate
         </h3>
-        <form onSubmit={handleQuoteSubmit}>
-          <div className="space-y-4">
-            <label className="block text-sm font-medium text-gray-700">
-              Where is your pet traveling from?
-            </label>
-            <input
-              required
-              value={origin}
-              onChange={(e) => setOrigin(e.target.value)}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-            />
-            <label className="block text-sm font-medium text-gray-700">Where is your pet going?</label>
-            <input
-              required
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-            />
-            <label className="block text-sm font-medium text-gray-700">What type of pet?</label>
-            <select
-              value={petType}
-              onChange={(e) => setPetType(e.target.value as PetType)}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+        <div className="relative min-h-[340px]">
+          <form
+            onSubmit={handleQuoteSubmit}
+            className={loading ? "pointer-events-none opacity-[0.35]" : ""}
+            aria-busy={loading}
+          >
+            <div className="space-y-4">
+              <label className="block text-sm font-medium text-gray-700">
+                Where is your pet traveling from?
+              </label>
+              <input
+                required
+                value={origin}
+                onChange={(e) => setOrigin(e.target.value)}
+                className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+              />
+              <label className="block text-sm font-medium text-gray-700">Where is your pet going?</label>
+              <input
+                required
+                value={destination}
+                onChange={(e) => setDestination(e.target.value)}
+                className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+              />
+              <label className="block text-sm font-medium text-gray-700">What type of pet?</label>
+              <select
+                value={petType}
+                onChange={(e) => setPetType(e.target.value as PetType)}
+                className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+              >
+                <option value="dog">Dog</option>
+                <option value="cat">Cat</option>
+                <option value="other">Other</option>
+              </select>
+              <label className="block text-sm font-medium text-gray-700">Pet weight (kg)</label>
+              <input
+                required
+                min={0}
+                type="number"
+                value={weight}
+                onChange={(e) => setWeight(Number(e.target.value))}
+                className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn-primary w-full text-lg disabled:opacity-70"
+              >
+                {loading ? "Working…" : "Calculate estimate"}
+              </button>
+              {!loading ? (
+                <p className="mt-2 text-center text-sm text-gray-500">
+                  Takes less than 30 seconds • No commitment
+                </p>
+              ) : null}
+            </div>
+          </form>
+
+          {loading ? (
+            <div
+              className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 rounded-2xl bg-white/93 px-4 backdrop-blur-sm"
+              role="status"
+              aria-live="polite"
             >
-              <option value="dog">Dog</option>
-              <option value="cat">Cat</option>
-              <option value="other">Other</option>
-            </select>
-            <label className="block text-sm font-medium text-gray-700">Pet weight (kg)</label>
-            <input
-              required
-              min={0}
-              type="number"
-              value={weight}
-              onChange={(e) => setWeight(Number(e.target.value))}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn-primary w-full text-lg disabled:opacity-70"
-            >
-              {loading ? "Working…" : "Calculate estimate"}
-            </button>
-            {loading ? (
-              <p className="mt-2 text-center text-gray-600 animate-pulse">
-                Calculating travel plan for your pet 🐾...
+              <img
+                src="/images/estimate-van.gif"
+                alt=""
+                width={128}
+                height={80}
+                className="h-20 w-auto max-w-full object-contain md:h-24"
+              />
+              <p className="text-center text-sm text-gray-600">
+                Calculating travel plan for your pet…
               </p>
-            ) : (
-              <p className="mt-2 text-center text-sm text-gray-500">
-                Takes less than 30 seconds • No commitment
-              </p>
-            )}
-          </div>
-        </form>
+            </div>
+          ) : null}
+        </div>
 
         {priceRange && !loading ? (
           <div className="mt-4 rounded-2xl bg-gray-50 p-5">
@@ -175,7 +201,7 @@ export function QuoteForm() {
             ) : (
               <div className="mt-4 rounded-2xl bg-green-50 p-4 text-center">
                 <p className="font-medium text-green-800">
-                  You&apos;re all set! We&apos;ll reach out shortly 🐾
+                  You&apos;re all set! We&apos;ll reach out shortly.
                 </p>
               </div>
             )}

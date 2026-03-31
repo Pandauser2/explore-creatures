@@ -1,3 +1,12 @@
+import type { PastelTone } from "@/components/PastelIcons";
+import {
+  IconCircle64,
+  SvgDocument,
+  SvgPaw,
+  SvgPlane,
+  SvgTruck
+} from "@/components/PastelIcons";
+
 type ServicesSectionProps = {
   services: Array<{
     title: string;
@@ -6,40 +15,59 @@ type ServicesSectionProps = {
   }>;
 };
 
-const hardcodedServices = [
+const hardcodedServices: {
+  title: string;
+  description: string;
+  tone: PastelTone;
+  icon: "plane" | "document" | "truck";
+}[] = [
   {
     title: "Flight & Travel Planning",
     description:
       "We plan the safest, most comfortable route for your pet, based on airline rules and timing.",
-    emoji: "✈️"
+    tone: "lavender",
+    icon: "plane"
   },
   {
     title: "Documentation & Compliance",
     description:
       "We handle all paperwork, health certificates, and country-specific requirements.",
-    emoji: "📋"
+    tone: "coral",
+    icon: "document"
   },
   {
     title: "Door-to-Door Support",
     description:
       "From pickup to final delivery, we coordinate every step of your pet’s journey.",
-    emoji: "🚚"
+    tone: "mint",
+    icon: "truck"
   }
-] as const;
+];
+
+function ServiceGlyph({ name }: { name: "plane" | "document" | "truck" }) {
+  if (name === "document") return <SvgDocument />;
+  if (name === "truck") return <SvgTruck />;
+  return <SvgPlane />;
+}
 
 export function ServicesSection({ services: _services }: ServicesSectionProps) {
   return (
     <section className="bg-white py-20">
       <div className="mx-auto max-w-6xl px-6">
-        <h2 className="mb-2 text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
-          Everything your pet needs for a smooth journey 🐾
+        <h2 className="mb-2 flex flex-wrap items-center gap-3 text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
+          <IconCircle64 tone="mint">
+            <SvgPaw />
+          </IconCircle64>
+          Everything your pet needs for a smooth journey
         </h2>
         <p className="mb-8 text-lg text-gray-600">We handle every step so you don’t have to worry.</p>
         <div className="grid gap-6 md:grid-cols-3">
           {hardcodedServices.map((service) => (
             <div key={service.title} className="card transition hover:shadow-lg">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-orange-100">
-                <span className="text-2xl">{service.emoji}</span>
+              <div className="mb-4">
+                <IconCircle64 tone={service.tone}>
+                  <ServiceGlyph name={service.icon} />
+                </IconCircle64>
               </div>
               <h3 className="mt-3 text-lg font-extrabold tracking-tight text-slate-900">
                 {service.title}
