@@ -7,13 +7,28 @@ export async function OPTIONS() {
   return new Response(null, { status: 204 });
 }
 
+/** Prefer runtime lookup via keys so Vercel/runtime env is not dropped at build. */
+const LEAD_URL_ENV_KEYS = [
+  "LEAD_WEB_APP_URL",
+  "APPS_SCRIPT_LEAD_URL",
+  "NEXT_PUBLIC_LEAD_WEB_APP_URL",
+  "NEXT_PUBLIC_APPS_SCRIPT_LEAD_URL"
+] as const;
+
 function leadWebhookUrl(): string | undefined {
-  return (
-    process.env.APPS_SCRIPT_LEAD_URL?.trim() ||
-    process.env.NEXT_PUBLIC_APPS_SCRIPT_LEAD_URL?.trim() ||
-    process.env.LEAD_WEB_APP_URL?.trim() ||
-    undefined
-  );
+  for (const key of LEAD_URL_ENV_KEYS) {
+    const v = process.env[key];
+    if (typeof v === "string") {
+      const t = v.trim();
+      if (t) return t;
+    }
+  }
+  return undefined;
+}
+
+/** GET — whether any lead URL env is set (does not expose the URL). */
+export async function GET() {
+  return Response.json({ leadWebhookConfigured: Boolean(leadWebhookUrl()) });
 }
 
 export async function POST(request: Request) {

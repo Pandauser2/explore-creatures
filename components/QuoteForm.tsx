@@ -17,7 +17,7 @@ function leadFailureMessage(status: number, serverError?: string): string {
     return "Please check your route details and pet weight, then try again.";
   }
   if (serverError === "LEAD_WEBHOOK_NOT_CONFIGURED") {
-    return "This form can't receive submissions until a web app URL is set for the server (e.g. LEAD_WEB_APP_URL or APPS_SCRIPT_LEAD_URL), then redeploy. See .env.example.";
+    return "The server doesn't have your Apps Script /exec URL. Set LEAD_WEB_APP_URL, APPS_SCRIPT_LEAD_URL, or NEXT_PUBLIC_APPS_SCRIPT_LEAD_URL in the host (Vercel: Production + redeploy). See .env.example.";
   }
   if (
     status === 502 ||
