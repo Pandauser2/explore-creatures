@@ -30,17 +30,18 @@ export function ProcessSection() {
           How it works
         </h2>
         <p className="mb-10 text-lg text-gray-600">A simple, guided process from start to finish.</p>
-        <div className="relative overflow-hidden pb-14 md:pb-16">
+        <div className="relative overflow-hidden pt-16 pb-14 md:pb-16">
+          <div className="pointer-events-none absolute left-0 top-1/2 z-0 w-full -translate-y-1/2 border-0 border-t-2 border-dashed border-gray-300" />
           <img
             src="/images/process-pet.gif"
             alt="Pet traveling"
-            className="pointer-events-none absolute left-2 top-[2.75rem] z-[1] w-16 -translate-y-1/2 opacity-[0.8] md:left-4 md:top-[3rem] md:w-20"
+            className="travel-pet pointer-events-none z-10 w-16"
           />
-          <div className="relative z-10 grid gap-6 md:grid-cols-4">
+          <div className="relative z-20 grid gap-6 md:grid-cols-4">
             {steps.map((step, idx) => (
               <div
                 key={step.title}
-                className="relative z-10 p-4 transition hover:-translate-y-1"
+                className="relative z-20 p-4 transition hover:-translate-y-1"
               >
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)] font-bold text-white">
                   {idx + 1}

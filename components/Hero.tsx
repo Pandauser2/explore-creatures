@@ -2,7 +2,7 @@ export function Hero() {
   return (
     <section className="w-full overflow-x-hidden bg-[#FFF7E6] py-20">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-6 px-6 md:grid-cols-2 md:gap-8">
-        <div className="max-w-lg">
+        <div className="max-w-lg min-w-0">
           <p className="text-sm font-semibold text-[#3399FF] mb-2">
             International Pet Relocation
           </p>

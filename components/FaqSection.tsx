@@ -34,24 +34,27 @@ export function FaqSection() {
 
   return (
     <section className="py-20">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="mx-auto max-w-3xl px-6">
         <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
           FAQ
         </h2>
-        <div className="mt-5 space-y-3">
+        <div className="mt-5">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
-              <div key={faq.question} className="rounded-xl border border-slate-200 bg-white">
+              <div key={faq.question} className="mb-4 overflow-hidden rounded-xl border border-gray-100 bg-white">
                 <button
-                  className="flex w-full items-center justify-between px-4 py-3 text-left font-medium text-slate-900"
+                  type="button"
+                  className="flex w-full items-center justify-between rounded-xl bg-white px-5 py-4 text-left shadow-sm transition hover:shadow-md"
                   onClick={() => setOpenIndex(isOpen ? null : idx)}
                   aria-expanded={isOpen}
                 >
-                  {faq.question}
-                  <span className="ml-4 text-slate-500">{isOpen ? "−" : "+"}</span>
+                  <span className="break-words pr-4 font-medium text-gray-900">{faq.question}</span>
+                  <span className="ml-2 flex-shrink-0 text-slate-500">{isOpen ? "−" : "+"}</span>
                 </button>
-                {isOpen ? <p className="px-4 pb-4 text-sm text-slate-700">{faq.answer}</p> : null}
+                {openIndex === idx ? (
+                  <div className="break-words px-5 pb-4 leading-relaxed text-gray-600">{faq.answer}</div>
+                ) : null}
               </div>
             );
           })}
