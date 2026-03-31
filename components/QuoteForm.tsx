@@ -17,7 +17,7 @@ function leadFailureMessage(status: number, serverError?: string): string {
     return "Please check your route details and pet weight, then try again.";
   }
   if (serverError === "LEAD_WEBHOOK_NOT_CONFIGURED") {
-    return "This form can't receive submissions until your Apps Script web app URL is set for the server (APPS_SCRIPT_LEAD_URL or NEXT_PUBLIC_APPS_SCRIPT_LEAD_URL), then redeploy. See .env.example.";
+    return "This form can't receive submissions until a web app URL is set for the server (e.g. LEAD_WEB_APP_URL or APPS_SCRIPT_LEAD_URL), then redeploy. See .env.example.";
   }
   if (
     status === 502 ||
@@ -72,7 +72,9 @@ export function QuoteForm() {
         ? new URL("/api/lead", window.location.origin).toString()
         : "/api/lead";
 
-    const directUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_LEAD_URL?.trim();
+    const directUrl =
+      process.env.NEXT_PUBLIC_APPS_SCRIPT_LEAD_URL?.trim() ||
+      process.env.NEXT_PUBLIC_LEAD_WEB_APP_URL?.trim();
 
     const postLead = async (url: string) => {
       const response = await fetch(url, {

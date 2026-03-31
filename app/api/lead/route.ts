@@ -11,6 +11,7 @@ function leadWebhookUrl(): string | undefined {
   return (
     process.env.APPS_SCRIPT_LEAD_URL?.trim() ||
     process.env.NEXT_PUBLIC_APPS_SCRIPT_LEAD_URL?.trim() ||
+    process.env.LEAD_WEB_APP_URL?.trim() ||
     undefined
   );
 }
