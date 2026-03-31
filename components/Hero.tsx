@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { QuoteForm } from "@/components/QuoteForm";
 
 type HeroProps = {
@@ -28,14 +27,11 @@ export function Hero({ title, subtitle }: HeroProps) {
             </div>
           </div>
           <div className="order-1 md:order-2">
-            <div className="relative h-[280px] overflow-hidden rounded-2xl sm:h-[420px]">
-              <Image
-                src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b"
-                alt="Happy pet travel"
-                width={600}
-                height={400}
-                priority
-                className="h-full w-full rounded-2xl object-cover"
+            <div className="h-[280px] overflow-hidden rounded-2xl shadow-md sm:h-[420px]">
+              <img
+                src="/images/hero.gif"
+                alt="Pet traveling animation"
+                className="h-full w-full rounded-2xl object-cover transition duration-300 hover:scale-105"
               />
             </div>
           </div>

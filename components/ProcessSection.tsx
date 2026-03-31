@@ -24,7 +24,6 @@ export function ProcessSection() {
         <h2 className="mb-2 text-3xl font-bold md:text-4xl">How it works ✈️</h2>
         <p className="mb-10 text-lg text-gray-600">A simple, guided process from start to finish.</p>
         <div className="relative">
-          <div className="absolute left-0 right-0 top-6 hidden border-t border-gray-200 md:block" />
           <div className="grid gap-6 md:grid-cols-4">
             {steps.map((step, idx) => (
               <div key={step.title} className="p-4 transition hover:-translate-y-1">
