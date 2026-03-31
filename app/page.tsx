@@ -31,12 +31,12 @@ export default async function Page() {
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 md:grid-cols-2">
             {/* Left: Value prop */}
             <div>
-              <h1 className="mb-4 flex flex-wrap items-center gap-3 text-3xl font-extrabold md:text-4xl">
+              <h2 className="mb-4 flex flex-wrap items-center gap-3 text-3xl font-extrabold md:text-4xl">
                 <IconCircle64 tone="coral">
                   <SvgPaw />
                 </IconCircle64>
                 Move your pet internationally without stress
-              </h1>
+              </h2>
               <p className="mb-6 text-gray-600">
                 Trusted by pet parents across 50+ countries. We handle airlines, paperwork, and
                 complex travel rules end-to-end.

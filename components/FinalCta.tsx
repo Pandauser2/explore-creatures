@@ -9,7 +9,7 @@ export function FinalCta({ text }: FinalCtaProps) {
         <div className="rounded-2xl bg-slate-900 p-6 text-white sm:p-8">
           <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">{text}</h2>
           <a href="#quote-form" className="btn-primary mt-4 inline-flex items-center">
-            Start now
+            Start your pet&apos;s journey
           </a>
         </div>
       </div>

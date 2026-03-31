@@ -6,7 +6,7 @@ export function Navbar() {
           Explore Creatures
         </a>
         <a href="#quote-form" className="btn-primary inline-flex items-center">
-          Start your estimate
+          Check your pet&apos;s travel cost
         </a>
       </div>
     </header>

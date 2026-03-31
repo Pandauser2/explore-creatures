@@ -6,7 +6,7 @@ const steps = [
     text: "Tell us where your pet is traveling from and to."
   },
   {
-    title: "Get your estimate",
+    title: "See your price range",
     text: "Instant price range based on your route and pet."
   },
   {
@@ -31,11 +31,11 @@ export function ProcessSection() {
         </h2>
         <p className="mb-10 text-lg text-gray-600">A simple, guided process from start to finish.</p>
         <div className="relative overflow-hidden pb-14 md:pb-16">
-          <div className="pointer-events-none absolute bottom-[-10px] left-0 w-16 md:w-20 animate-travel">
+          <div className="pointer-events-none absolute left-0 top-[2.75rem] z-[1] w-16 opacity-70 md:top-[2.875rem] md:w-20 animate-travel">
             <img
               src="/images/pet-travel.svg"
               alt="Pet traveling"
-              className="h-auto w-full opacity-90 animate-process-pet-bob"
+              className="h-auto w-full animate-process-pet-bob"
             />
           </div>
           <div className="relative z-10 grid gap-6 md:grid-cols-4">

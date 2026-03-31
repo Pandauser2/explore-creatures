@@ -18,6 +18,7 @@ type ServicesSectionProps = {
 const hardcodedServices: {
   title: string;
   description: string;
+  detail: string;
   tone: PastelTone;
   icon: "plane" | "document" | "truck";
 }[] = [
@@ -25,6 +26,7 @@ const hardcodedServices: {
     title: "Flight & Travel Planning",
     description:
       "We plan the safest, most comfortable route for your pet, based on airline rules and timing.",
+    detail: "Airline-approved routing and crate guidance for your pet’s size and breed.",
     tone: "lavender",
     icon: "plane"
   },
@@ -32,6 +34,7 @@ const hardcodedServices: {
     title: "Documentation & Compliance",
     description:
       "We handle all paperwork, health certificates, and country-specific requirements.",
+    detail: "Country entry rules, vaccination records, and export/import forms in one place.",
     tone: "coral",
     icon: "document"
   },
@@ -39,6 +42,7 @@ const hardcodedServices: {
     title: "Door-to-Door Support",
     description:
       "From pickup to final delivery, we coordinate every step of your pet’s journey.",
+    detail: "Pickup timing, handoffs, and updates so you always know where things stand.",
     tone: "mint",
     icon: "truck"
   }
@@ -73,6 +77,7 @@ export function ServicesSection({ services: _services }: ServicesSectionProps) {
                 {service.title}
               </h3>
               <p className="mt-2 text-sm text-slate-700">{service.description}</p>
+              <p className="mt-3 text-sm text-gray-600">{service.detail}</p>
             </div>
           ))}
         </div>

@@ -29,6 +29,11 @@ export function FounderSection() {
               airlines, documentation, and complex regulations.
             </p>
 
+            <p className="mb-4 text-gray-600">
+              Personally handled pet relocations across international routes with complex airline
+              and compliance requirements.
+            </p>
+
             <p className="font-medium text-gray-800">
               Helping families relocate pets across multiple international routes.
             </p>

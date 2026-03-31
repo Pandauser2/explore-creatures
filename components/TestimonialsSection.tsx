@@ -11,10 +11,10 @@ const testimonials: {
   {
     avatar: "dog",
     tone: "lavender",
-    name: "Maya R.",
+    name: "Priya S.",
     route: "India → UK",
     quote:
-      "Our dog was anxious about flying, but the team handled everything perfectly. He arrived calm and safe. Huge relief for us."
+      "We moved our dog Bruno from Delhi to London. The paperwork was overwhelming, but everything was handled smoothly—from health certs to the flight crate."
   },
   {
     avatar: "cat",
@@ -22,15 +22,15 @@ const testimonials: {
     name: "Arun P.",
     route: "Bangalore → Singapore",
     quote:
-      "Super smooth process from paperwork to delivery. They kept me updated at every step."
+      "Our cat Miso needed clearances we didn’t understand. They walked us through each step and kept us updated until she landed safely."
   },
   {
     avatar: "paw",
     tone: "mint",
     name: "Lina K.",
-    route: "Indonesia → Germany",
+    route: "Jakarta → Germany",
     quote:
-      "I was worried about international rules, but they managed everything. Made a stressful move feel easy."
+      "Relocating our rescue Luna felt impossible with EU rules. They coordinated airlines and documents so we could focus on settling in."
   }
 ];
 
@@ -65,7 +65,7 @@ export function TestimonialsSection() {
                 </IconCircle64>
                 <div className="text-left">
                   <p className="font-semibold text-slate-900">{item.name}</p>
-                  <p className="text-sm text-gray-500">{item.route}</p>
+                  <p className="text-sm font-medium text-[var(--accent)]">{item.route}</p>
                 </div>
               </div>
               <div className="mb-2 text-yellow-400">★★★★★</div>
