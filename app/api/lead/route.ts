@@ -7,10 +7,21 @@ export async function OPTIONS() {
   return new Response(null, { status: 204 });
 }
 
+function leadWebhookUrl(): string | undefined {
+  return (
+    process.env.APPS_SCRIPT_LEAD_URL?.trim() ||
+    process.env.NEXT_PUBLIC_APPS_SCRIPT_LEAD_URL?.trim() ||
+    undefined
+  );
+}
+
 export async function POST(request: Request) {
-  const WEB_APP_URL = process.env.APPS_SCRIPT_LEAD_URL;
+  const WEB_APP_URL = leadWebhookUrl();
   if (!WEB_APP_URL) {
-    return Response.json({ ok: false, error: "Server misconfigured" }, { status: 500 });
+    return Response.json(
+      { ok: false, error: "LEAD_WEBHOOK_NOT_CONFIGURED" },
+      { status: 503 }
+    );
   }
 
   try {
@@ -65,14 +76,6 @@ export async function POST(request: Request) {
       console.error("lead_upstream_error", upstream.status, upstreamText.slice(0, 500));
       return Response.json(
         { ok: false, error: `Upstream failed with ${upstream.status}` },
-        { status: 502 }
-      );
-    }
-
-    if (upstreamText.includes("SyntaxError") || upstreamText.includes("is not valid JSON")) {
-      console.error("lead_upstream_script_error", upstreamText.slice(0, 500));
-      return Response.json(
-        { ok: false, error: "Apps Script rejected the payload" },
         { status: 502 }
       );
     }

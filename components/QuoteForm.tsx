@@ -16,6 +16,9 @@ function leadFailureMessage(status: number, serverError?: string): string {
   if (status === 400 || serverError === "Invalid input") {
     return "Please check your route details and pet weight, then try again.";
   }
+  if (serverError === "LEAD_WEBHOOK_NOT_CONFIGURED") {
+    return "This form can't receive submissions until your Apps Script web app URL is set for the server (APPS_SCRIPT_LEAD_URL or NEXT_PUBLIC_APPS_SCRIPT_LEAD_URL), then redeploy. See .env.example.";
+  }
   if (
     status === 502 ||
     (serverError?.includes("Upstream") ?? false) ||
@@ -69,38 +72,59 @@ export function QuoteForm() {
         ? new URL("/api/lead", window.location.origin).toString()
         : "/api/lead";
 
-    try {
-      const response = await fetch(leadUrl, {
+    const directUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_LEAD_URL?.trim();
+
+    const postLead = async (url: string) => {
+      const response = await fetch(url, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
           origin,
           destination,
           pet_type: petType,
           weight
-        })
+        }),
+        credentials: "omit"
       });
-
-      let data: { ok?: boolean; error?: string } = {};
       const raw = await response.text();
+      let data: { ok?: boolean; error?: string } = {};
       if (raw) {
         try {
           data = JSON.parse(raw) as { ok?: boolean; error?: string };
         } catch {
-          /* non-JSON body */
+          /* Apps Script often returns plain text, not JSON */
         }
       }
+      return { response, data, raw };
+    };
 
-      if (!response.ok) {
-        console.error("lead_submit_failed", response.status, data.error);
-        setEmailMessage(leadFailureMessage(response.status, data.error));
-        return;
+    const shouldTryDirectAfterProxy = (
+      status: number,
+      alreadySucceeded: boolean
+    ) => {
+      if (!directUrl || alreadySucceeded) return false;
+      if (status === 400) return false;
+      return status === 404 || status === 500 || status === 502 || status === 503;
+    };
+
+    const isLeadSuccess = (proxyOk: boolean, data: { ok?: boolean }, raw: string) => {
+      if (!proxyOk) return false;
+      if (data.ok === false) return false;
+      if (data.ok === true) return true;
+      /* Direct Apps Script: 200 + non-JSON body */
+      return raw.length === 0 || !raw.trim().startsWith("Exception");
+    };
+
+    try {
+      let { response, data, raw } = await postLead(leadUrl);
+
+      if (shouldTryDirectAfterProxy(response.status, isLeadSuccess(response.ok, data, raw))) {
+        ({ response, data, raw } = await postLead(directUrl!));
       }
 
-      if (data.ok === false) {
+      if (!isLeadSuccess(response.ok, data, raw)) {
+        console.error("lead_submit_failed", response.status, data.error, raw.slice(0, 200));
         setEmailMessage(leadFailureMessage(response.status, data.error));
         return;
       }
@@ -108,6 +132,18 @@ export function QuoteForm() {
       setIsSubmitted(true);
       setEmailMessage("We'll contact you shortly");
     } catch (error) {
+      if (directUrl) {
+        try {
+          const { response, data, raw } = await postLead(directUrl);
+          if (isLeadSuccess(response.ok, data, raw)) {
+            setIsSubmitted(true);
+            setEmailMessage("We'll contact you shortly");
+            return;
+          }
+        } catch {
+          /* fall through */
+        }
+      }
       console.error("lead_submit_failed", error);
       setEmailMessage("Something went wrong. Please try again shortly.");
     } finally {
