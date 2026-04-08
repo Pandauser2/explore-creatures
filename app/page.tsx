@@ -25,12 +25,21 @@ export default async function Page() {
       </div>
       <div className="fade-in">
         <section aria-label="Happy customers">
-          <div className="w-full flex justify-center">
-            <div className="w-full max-w-5xl">
+          <div className="mx-auto grid w-full max-w-6xl items-center gap-8 px-4 py-12 md:grid-cols-2 md:items-start">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                Real customer experience
+              </p>
+              <p className="text-lg font-medium leading-relaxed md:text-xl">
+                "One of the most unique wildlife experiences I&apos;ve had."
+              </p>
+              <p className="mt-4 text-sm text-gray-600">- Priya Sharma, Happy Customer</p>
+            </div>
+            <div className="flex justify-center md:justify-end">
               <img
                 src="/images/happy_customer.png"
                 alt="Happy customer"
-                className="w-full h-auto"
+                className="h-auto w-full max-w-md rounded-xl"
               />
             </div>
           </div>
