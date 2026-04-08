@@ -25,12 +25,12 @@ export default async function Page() {
       </div>
       <div className="fade-in">
         <section aria-label="Happy customers">
-          <div className="mx-auto grid w-full max-w-6xl items-center gap-8 px-4 py-12 md:grid-cols-2 md:items-start">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+          <div className="mx-auto grid w-full max-w-6xl items-center gap-6 px-4 py-12 md:grid-cols-2 md:items-start">
+            <div className="max-w-lg md:pr-6">
+              <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">
                 Real customer experience
               </p>
-              <p className="text-lg md:text-xl font-medium leading-relaxed">
+              <p className="text-xl md:text-2xl font-semibold leading-relaxed">
                 {"We discovered wildlife experiences we would've never found on our own."}
               </p>
               <p className="mt-4 text-sm text-gray-600">- Priya Sharma, Happy Customer</p>
@@ -39,7 +39,7 @@ export default async function Page() {
               <img
                 src="/images/happy_customer.png"
                 alt="Happy customer"
-                className="h-auto w-full max-w-md rounded-xl"
+                className="h-auto w-full max-w-sm rounded-xl"
               />
             </div>
           </div>
