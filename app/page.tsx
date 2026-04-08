@@ -104,7 +104,7 @@ export default async function Page() {
       <section id="contact" className="w-full bg-white py-16">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
-            Talk to Us Before You Book
+            Talk to Us
           </h2>
           <p className="mt-4 text-gray-600">
             <a href="tel:+917003930780" className="font-medium text-slate-900 hover:underline">

@@ -50,9 +50,7 @@ export function QuoteForm() {
   const [emailLoading, setEmailLoading] = useState(false);
   const [emailMessage, setEmailMessage] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [openSections, setOpenSections] = useState<Set<string>>(
-    () => new Set(["pet", "travel", "contact", "review"])
-  );
+  const [openSections, setOpenSections] = useState<Set<string>>(() => new Set());
 
   const toggleSection = (section: string) => {
     setOpenSections((prev) => {
@@ -329,31 +327,23 @@ export function QuoteForm() {
               </div>
 
               <div className="overflow-hidden rounded-xl border border-gray-100">
-                <button
-                  type="button"
-                  onClick={() => toggleSection("review")}
-                  className="flex w-full items-center justify-between px-4 py-3 text-left"
-                  aria-expanded={openSections.has("review")}
-                >
+                <div className="px-4 py-3">
                   <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">Review & Submit</span>
-                  <span className="text-gray-500">{openSections.has("review") ? "−" : "+"}</span>
-                </button>
-                {openSections.has("review") ? (
-                  <div className="px-4 pb-4">
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="btn-primary w-full text-lg disabled:opacity-70"
-                    >
-                      {loading ? "Working…" : "Calculate estimate"}
-                    </button>
-                    {!loading ? (
-                      <p className="mt-2 text-center text-sm text-gray-500">
-                        Takes less than 30 seconds • No commitment
-                      </p>
-                    ) : null}
-                  </div>
-                ) : null}
+                </div>
+                <div className="px-4 pb-4">
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="btn-primary w-full text-lg disabled:opacity-70"
+                  >
+                    {loading ? "Working…" : "Calculate estimate"}
+                  </button>
+                  {!loading ? (
+                    <p className="mt-2 text-center text-sm text-gray-500">
+                      Takes less than 30 seconds • No commitment
+                    </p>
+                  ) : null}
+                </div>
               </div>
             </div>
           </form>
