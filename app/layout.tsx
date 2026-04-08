@@ -36,7 +36,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.png" type="image/png" />
       </head>
-      <body className={nunito.className}>{children}</body>
+      <body className={`${nunito.className} overflow-x-hidden`}>{children}</body>
     </html>
   );
 }

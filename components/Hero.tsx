@@ -1,6 +1,6 @@
 export function Hero() {
   return (
-    <section className="w-full overflow-x-hidden bg-[#FFF7E6] py-20">
+    <section className="w-full overflow-hidden bg-[#FFF7E6] pt-16 pb-8">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-6 px-6 md:grid-cols-2 md:gap-8">
         <div className="max-w-lg min-w-0">
           <p className="text-sm font-semibold text-[#3399FF] mb-2">
@@ -22,7 +22,7 @@ export function Hero() {
             Trusted by pet parents moving across 50+ countries
           </p>
         </div>
-        <div className="relative flex justify-center overflow-visible md:justify-end">
+        <div className="relative flex justify-center overflow-hidden md:justify-end">
           <div
             className="pointer-events-none absolute right-0 top-[45%] h-[500px] w-[500px] rounded-full bg-gradient-to-br from-[#FFB84D]/40 via-[#FFD89B]/30 to-transparent blur-3xl"
             aria-hidden

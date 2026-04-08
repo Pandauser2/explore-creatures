@@ -21,7 +21,7 @@ export default async function Page() {
         <Hero />
       </div>
       <div className="fade-in">
-        <section className="bg-[var(--bg-soft)] py-16">
+        <section className="bg-[var(--bg-soft)] pt-8 pb-16">
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 md:grid-cols-2">
             {/* Left: Value prop */}
             <div>
