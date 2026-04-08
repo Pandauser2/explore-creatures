@@ -25,7 +25,15 @@ export default async function Page() {
       </div>
       <div className="fade-in">
         <section aria-label="Happy customers">
-          <img src="/images/happy_customer.png" alt="Happy customers" />
+          <div className="w-full flex justify-center">
+            <div className="w-full max-w-5xl">
+              <img
+                src="/images/happy_customer.png"
+                alt="Happy customer"
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
         </section>
       </div>
       <div className="fade-in">
