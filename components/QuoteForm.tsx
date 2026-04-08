@@ -67,11 +67,12 @@ export function QuoteForm() {
           Get your pet travel estimate
         </h3>
         <div className="relative min-h-[340px]">
-          <form
-            onSubmit={handleQuoteSubmit}
-            className={loading ? "pointer-events-none opacity-[0.35]" : ""}
-            aria-busy={loading}
-          >
+          {!priceRange ? (
+            <form
+              onSubmit={handleQuoteSubmit}
+              className={loading ? "pointer-events-none opacity-[0.35]" : ""}
+              aria-busy={loading}
+            >
             <div className="space-y-4">
               <div className="overflow-hidden rounded-xl border border-gray-100">
                 <button
@@ -228,7 +229,8 @@ export function QuoteForm() {
                 </div>
               </div>
             </div>
-          </form>
+            </form>
+          ) : null}
 
           {loading ? (
             <div
@@ -250,7 +252,7 @@ export function QuoteForm() {
           ) : null}
         </div>
 
-        {priceRange && !loading ? (
+        {priceRange ? (
           <div className="mt-4 rounded-2xl bg-gray-50 p-5">
             <p className="text-sm text-slate-700">Estimated price range</p>
             <p className="text-2xl font-bold text-slate-900">
