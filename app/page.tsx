@@ -108,7 +108,7 @@ export default async function Page() {
           </h2>
           <p className="mt-4 text-gray-600">
             <a href="tel:+917003930780" className="font-medium text-slate-900 hover:underline">
-              Phone: 7003930780
+              Phone: +91 7003930780
             </a>
           </p>
           <p className="mt-2 text-gray-600">

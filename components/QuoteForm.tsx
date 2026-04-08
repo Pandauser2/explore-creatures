@@ -50,6 +50,18 @@ export function QuoteForm() {
   const [emailLoading, setEmailLoading] = useState(false);
   const [emailMessage, setEmailMessage] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [openSections, setOpenSections] = useState<Set<string>>(
+    () => new Set(["pet", "travel", "contact", "review"])
+  );
+
+  const toggleSection = (section: string) => {
+    setOpenSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(section)) next.delete(section);
+      else next.add(section);
+      return next;
+    });
+  };
 
   const handleQuoteSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -180,119 +192,169 @@ export function QuoteForm() {
             className={loading ? "pointer-events-none opacity-[0.35]" : ""}
             aria-busy={loading}
           >
-            <div className="space-y-5">
-              <div className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Pet Details</p>
-                <label className="block text-sm font-medium text-gray-700">What type of pet?</label>
-                <select
-                  value={petType}
-                  onChange={(e) => setPetType(e.target.value as PetType)}
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+            <div className="space-y-4">
+              <div className="overflow-hidden rounded-xl border border-gray-100">
+                <button
+                  type="button"
+                  onClick={() => toggleSection("pet")}
+                  className="flex w-full items-center justify-between px-4 py-3 text-left"
+                  aria-expanded={openSections.has("pet")}
                 >
-                  <option value="dog">Dog</option>
-                  <option value="cat">Cat</option>
-                  <option value="other">Other</option>
-                </select>
-                <label className="block text-sm font-medium text-gray-700">Breed</label>
-                <input
-                  required
-                  type="text"
-                  value={breed}
-                  onChange={(e) => setBreed(e.target.value)}
-                  placeholder="e.g., Labrador, Persian Cat"
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                />
-                <p className="text-xs text-gray-500">
-                  Some airlines restrict specific breeds — this helps us give an accurate quote.
-                </p>
-                <label className="block text-sm font-medium text-gray-700">Pet Age</label>
-                <input
-                  type="text"
-                  value={petAge}
-                  onChange={(e) => setPetAge(e.target.value)}
-                  placeholder="e.g., 3 years"
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                />
-                <label className="block text-sm font-medium text-gray-700">Pet weight (kg) (optional)</label>
-                <input
-                  min={0}
-                  type="number"
-                  value={weight}
-                  onChange={(e) => setWeight(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                />
+                  <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">Pet Details</span>
+                  <span className="text-gray-500">{openSections.has("pet") ? "−" : "+"}</span>
+                </button>
+                {openSections.has("pet") ? (
+                  <div className="space-y-3 px-4 pb-4">
+                    <label className="block text-sm font-medium text-gray-700">What type of pet?</label>
+                    <select
+                      value={petType}
+                      onChange={(e) => setPetType(e.target.value as PetType)}
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                    >
+                      <option value="dog">Dog</option>
+                      <option value="cat">Cat</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <label className="block text-sm font-medium text-gray-700">Breed</label>
+                    <input
+                      required
+                      type="text"
+                      value={breed}
+                      onChange={(e) => setBreed(e.target.value)}
+                      placeholder="e.g., Labrador, Persian Cat"
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                    />
+                    <p className="text-xs text-gray-500">
+                      Some airlines restrict specific breeds — this helps us give an accurate quote.
+                    </p>
+                    <label className="block text-sm font-medium text-gray-700">Pet Age</label>
+                    <input
+                      type="text"
+                      value={petAge}
+                      onChange={(e) => setPetAge(e.target.value)}
+                      placeholder="e.g., 3 years"
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                    />
+                    <label className="block text-sm font-medium text-gray-700">Pet weight (kg) (optional)</label>
+                    <input
+                      min={0}
+                      type="number"
+                      value={weight}
+                      onChange={(e) => setWeight(e.target.value)}
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                    />
+                  </div>
+                ) : null}
               </div>
 
-              <div className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Travel Details</p>
-                <label className="block text-sm font-medium text-gray-700">
-                  Where is your pet traveling from?
-                </label>
-                <input
-                  required
-                  value={origin}
-                  onChange={(e) => setOrigin(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                />
-                <label className="block text-sm font-medium text-gray-700">Where is your pet going?</label>
-                <input
-                  required
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                />
-                <label className="block text-sm font-medium text-gray-700">Date of Journey</label>
-                <input
-                  required
-                  type="date"
-                  value={journeyDate}
-                  onChange={(e) => setJourneyDate(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                />
-                <p className="text-xs text-gray-500">
-                  Prices vary based on availability and season
-                </p>
+              <div className="overflow-hidden rounded-xl border border-gray-100">
+                <button
+                  type="button"
+                  onClick={() => toggleSection("travel")}
+                  className="flex w-full items-center justify-between px-4 py-3 text-left"
+                  aria-expanded={openSections.has("travel")}
+                >
+                  <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">Travel Details</span>
+                  <span className="text-gray-500">{openSections.has("travel") ? "−" : "+"}</span>
+                </button>
+                {openSections.has("travel") ? (
+                  <div className="space-y-3 px-4 pb-4">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Where is your pet traveling from?
+                    </label>
+                    <input
+                      required
+                      value={origin}
+                      onChange={(e) => setOrigin(e.target.value)}
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                    />
+                    <label className="block text-sm font-medium text-gray-700">Where is your pet going?</label>
+                    <input
+                      required
+                      value={destination}
+                      onChange={(e) => setDestination(e.target.value)}
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                    />
+                    <label className="block text-sm font-medium text-gray-700">Date of Journey</label>
+                    <input
+                      required
+                      type="date"
+                      value={journeyDate}
+                      onChange={(e) => setJourneyDate(e.target.value)}
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                    />
+                    <p className="text-xs text-gray-500">Prices vary based on availability and season</p>
+                  </div>
+                ) : null}
               </div>
 
-              <div className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Contact Details</p>
-                <label className="block text-sm font-medium text-gray-700">Name</label>
-                <input
-                  required
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                />
-                <label className="block text-sm font-medium text-gray-700">Phone (WhatsApp preferred)</label>
-                <input
-                  required
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                />
-                <label className="block text-sm font-medium text-gray-700">Email</label>
-                <input
-                  required
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                />
+              <div className="overflow-hidden rounded-xl border border-gray-100">
+                <button
+                  type="button"
+                  onClick={() => toggleSection("contact")}
+                  className="flex w-full items-center justify-between px-4 py-3 text-left"
+                  aria-expanded={openSections.has("contact")}
+                >
+                  <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">Contact Details</span>
+                  <span className="text-gray-500">{openSections.has("contact") ? "−" : "+"}</span>
+                </button>
+                {openSections.has("contact") ? (
+                  <div className="space-y-3 px-4 pb-4">
+                    <label className="block text-sm font-medium text-gray-700">Name</label>
+                    <input
+                      required
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                    />
+                    <label className="block text-sm font-medium text-gray-700">Phone (WhatsApp preferred)</label>
+                    <input
+                      required
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                    />
+                    <label className="block text-sm font-medium text-gray-700">Email</label>
+                    <input
+                      required
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                    />
+                  </div>
+                ) : null}
               </div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="btn-primary w-full text-lg disabled:opacity-70"
-              >
-                {loading ? "Working…" : "Calculate estimate"}
-              </button>
-              {!loading ? (
-                <p className="mt-2 text-center text-sm text-gray-500">
-                  Takes less than 30 seconds • No commitment
-                </p>
-              ) : null}
+
+              <div className="overflow-hidden rounded-xl border border-gray-100">
+                <button
+                  type="button"
+                  onClick={() => toggleSection("review")}
+                  className="flex w-full items-center justify-between px-4 py-3 text-left"
+                  aria-expanded={openSections.has("review")}
+                >
+                  <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">Review & Submit</span>
+                  <span className="text-gray-500">{openSections.has("review") ? "−" : "+"}</span>
+                </button>
+                {openSections.has("review") ? (
+                  <div className="px-4 pb-4">
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="btn-primary w-full text-lg disabled:opacity-70"
+                    >
+                      {loading ? "Working…" : "Calculate estimate"}
+                    </button>
+                    {!loading ? (
+                      <p className="mt-2 text-center text-sm text-gray-500">
+                        Takes less than 30 seconds • No commitment
+                      </p>
+                    ) : null}
+                  </div>
+                ) : null}
+              </div>
             </div>
           </form>
 
