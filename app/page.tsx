@@ -21,6 +21,23 @@ export default async function Page() {
         <Hero />
       </div>
       <div className="fade-in">
+        <ServicesSection services={data.services} />
+      </div>
+      <div className="fade-in">
+        <section aria-label="Happy customers">
+          <img src="/images/happy_customer.png" alt="Happy customers" />
+        </section>
+      </div>
+      <div className="fade-in">
+        <ProcessSection />
+      </div>
+      <div className="fade-in">
+        <TestimonialsSection />
+      </div>
+      <div className="fade-in">
+        <FounderSection />
+      </div>
+      <div className="fade-in">
         <section className="bg-[var(--bg-soft)] pt-8 pb-16">
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 md:grid-cols-2">
             {/* Left: Value prop */}
@@ -60,18 +77,6 @@ export default async function Page() {
             <QuoteForm />
           </div>
         </section>
-      </div>
-      <div className="fade-in">
-        <ServicesSection services={data.services} />
-      </div>
-      <div className="fade-in">
-        <ProcessSection />
-      </div>
-      <div className="fade-in">
-        <FounderSection />
-      </div>
-      <div className="fade-in">
-        <TestimonialsSection />
       </div>
       <div className="fade-in">
         <FaqSection />
