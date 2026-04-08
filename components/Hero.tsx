@@ -16,7 +16,15 @@ export function Hero() {
             href="#quote-form"
             className="mt-8 inline-block rounded-full bg-[#3399FF] px-8 py-3 font-semibold text-white shadow-xl transition-all hover:bg-[#2f89e6] motion-safe:hover:scale-105"
           >
-            Get your estimate
+            Talk to a Pet Travel Expert
+          </a>
+          <a
+            href="https://wa.me/917003930780"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-block rounded-full border border-[#25D366] px-8 py-3 font-semibold text-[#1c9c4e] transition hover:bg-[#25D366]/10"
+          >
+            Chat on WhatsApp
           </a>
           <p className="mt-4 text-sm text-gray-500">
             Trusted by pet parents moving across 50+ countries

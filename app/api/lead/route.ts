@@ -42,38 +42,56 @@ export async function POST(request: Request) {
 
   try {
     const body = (await request.json()) as Record<string, unknown>;
+    const name = body.name;
+    const phone = body.phone;
     const email = body.email;
     const origin = body.origin;
     const destination = body.destination;
     const pet_type = body.pet_type;
+    const breed = body.breed;
+    const pet_age = body.pet_age;
+    const journey_date = body.journey_date;
     const rawWeight = body.weight;
     const weight =
       typeof rawWeight === "number"
         ? rawWeight
         : typeof rawWeight === "string"
           ? Number.parseFloat(rawWeight)
-          : NaN;
+          : undefined;
 
     if (
       typeof email !== "string" ||
       !email.includes("@") ||
+      typeof name !== "string" ||
+      !name.trim() ||
+      typeof phone !== "string" ||
+      !phone.trim() ||
       typeof origin !== "string" ||
       !origin.trim() ||
       typeof destination !== "string" ||
       !destination.trim() ||
+      typeof breed !== "string" ||
+      !breed.trim() ||
+      typeof journey_date !== "string" ||
+      !journey_date.trim() ||
       typeof pet_type !== "string" ||
       !ALLOWED_PET_TYPES.includes(pet_type as (typeof ALLOWED_PET_TYPES)[number]) ||
-      !Number.isFinite(weight)
+      (weight !== undefined && !Number.isFinite(weight))
     ) {
       return Response.json({ ok: false, error: "Invalid input" }, { status: 400 });
     }
 
     const payload = {
+      name: name.trim(),
+      phone: phone.trim(),
       email: email.trim(),
       origin: origin.trim(),
       destination: destination.trim(),
       pet_type,
-      weight
+      breed: breed.trim(),
+      pet_age: typeof pet_age === "string" ? pet_age.trim() : "",
+      journey_date: journey_date.trim(),
+      ...(weight !== undefined ? { weight } : {})
     };
 
     const upstream = await fetch(WEB_APP_URL, {

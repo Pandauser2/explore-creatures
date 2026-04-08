@@ -5,10 +5,10 @@ export function Navbar() {
         Explore Creatures
       </a>
       <a
-        href="#how-it-works"
+        href="#contact"
         className="text-sm font-semibold text-gray-600 transition hover:text-gray-900"
       >
-        How it works
+        Contact Us
       </a>
     </header>
   );

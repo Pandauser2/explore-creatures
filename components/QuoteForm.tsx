@@ -14,7 +14,7 @@ type PetType = keyof typeof petMultipliers;
 
 function leadFailureMessage(status: number, serverError?: string): string {
   if (status === 400 || serverError === "Invalid input") {
-    return "Please check your route details and pet weight, then try again.";
+    return "Please check your route, pet, and contact details, then try again.";
   }
   if (serverError === "LEAD_WEBHOOK_NOT_CONFIGURED") {
     return "The server doesn't have your Apps Script /exec URL. Set LEAD_WEB_APP_URL, APPS_SCRIPT_LEAD_URL, or NEXT_PUBLIC_APPS_SCRIPT_LEAD_URL in the host (Vercel: Production + redeploy). See .env.example.";
@@ -33,10 +33,15 @@ function leadFailureMessage(status: number, serverError?: string): string {
 }
 
 export function QuoteForm() {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [journeyDate, setJourneyDate] = useState("");
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [petType, setPetType] = useState<PetType>("dog");
-  const [weight, setWeight] = useState(10);
+  const [breed, setBreed] = useState("");
+  const [petAge, setPetAge] = useState("");
+  const [weight, setWeight] = useState("");
   const [loading, setLoading] = useState(false);
   const [priceRange, setPriceRange] = useState<{ min: number; max: number } | null>(
     null
@@ -53,7 +58,9 @@ export function QuoteForm() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const base = 200 + (origin.trim() !== destination.trim() ? 300 : 0);
-    const weightMultiplier = Math.max(0, weight) * 2;
+    const parsedWeight = Number.parseFloat(weight);
+    const safeWeight = Number.isFinite(parsedWeight) ? Math.max(0, parsedWeight) : 0;
+    const weightMultiplier = safeWeight * 2;
     const price = (base + weightMultiplier) * petMultipliers[petType];
     const min = Math.round(price * 0.8);
     const max = Math.round(price * 1.2);
@@ -81,11 +88,16 @@ export function QuoteForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          name,
+          phone,
           email,
           origin,
           destination,
           pet_type: petType,
-          weight
+          breed,
+          pet_age: petAge,
+          journey_date: journeyDate,
+          weight: weight.trim() ? weight : undefined
         }),
         credentials: "omit"
       });
@@ -168,42 +180,107 @@ export function QuoteForm() {
             className={loading ? "pointer-events-none opacity-[0.35]" : ""}
             aria-busy={loading}
           >
-            <div className="space-y-4">
-              <label className="block text-sm font-medium text-gray-700">
-                Where is your pet traveling from?
-              </label>
-              <input
-                required
-                value={origin}
-                onChange={(e) => setOrigin(e.target.value)}
-                className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-              />
-              <label className="block text-sm font-medium text-gray-700">Where is your pet going?</label>
-              <input
-                required
-                value={destination}
-                onChange={(e) => setDestination(e.target.value)}
-                className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-              />
-              <label className="block text-sm font-medium text-gray-700">What type of pet?</label>
-              <select
-                value={petType}
-                onChange={(e) => setPetType(e.target.value as PetType)}
-                className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-              >
-                <option value="dog">Dog</option>
-                <option value="cat">Cat</option>
-                <option value="other">Other</option>
-              </select>
-              <label className="block text-sm font-medium text-gray-700">Pet weight (kg)</label>
-              <input
-                required
-                min={0}
-                type="number"
-                value={weight}
-                onChange={(e) => setWeight(Number(e.target.value))}
-                className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-              />
+            <div className="space-y-5">
+              <div className="space-y-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Pet Details</p>
+                <label className="block text-sm font-medium text-gray-700">What type of pet?</label>
+                <select
+                  value={petType}
+                  onChange={(e) => setPetType(e.target.value as PetType)}
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                >
+                  <option value="dog">Dog</option>
+                  <option value="cat">Cat</option>
+                  <option value="other">Other</option>
+                </select>
+                <label className="block text-sm font-medium text-gray-700">Breed</label>
+                <input
+                  required
+                  type="text"
+                  value={breed}
+                  onChange={(e) => setBreed(e.target.value)}
+                  placeholder="e.g., Labrador, Persian Cat"
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                />
+                <p className="text-xs text-gray-500">
+                  Some airlines restrict specific breeds — this helps us give an accurate quote.
+                </p>
+                <label className="block text-sm font-medium text-gray-700">Pet Age</label>
+                <input
+                  type="text"
+                  value={petAge}
+                  onChange={(e) => setPetAge(e.target.value)}
+                  placeholder="e.g., 3 years"
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                />
+                <label className="block text-sm font-medium text-gray-700">Pet weight (kg) (optional)</label>
+                <input
+                  min={0}
+                  type="number"
+                  value={weight}
+                  onChange={(e) => setWeight(e.target.value)}
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                />
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Travel Details</p>
+                <label className="block text-sm font-medium text-gray-700">
+                  Where is your pet traveling from?
+                </label>
+                <input
+                  required
+                  value={origin}
+                  onChange={(e) => setOrigin(e.target.value)}
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                />
+                <label className="block text-sm font-medium text-gray-700">Where is your pet going?</label>
+                <input
+                  required
+                  value={destination}
+                  onChange={(e) => setDestination(e.target.value)}
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                />
+                <label className="block text-sm font-medium text-gray-700">Date of Journey</label>
+                <input
+                  required
+                  type="date"
+                  value={journeyDate}
+                  onChange={(e) => setJourneyDate(e.target.value)}
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                />
+                <p className="text-xs text-gray-500">
+                  Prices vary based on availability and season
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Contact Details</p>
+                <label className="block text-sm font-medium text-gray-700">Name</label>
+                <input
+                  required
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                />
+                <label className="block text-sm font-medium text-gray-700">Phone (WhatsApp preferred)</label>
+                <input
+                  required
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                />
+                <label className="block text-sm font-medium text-gray-700">Email</label>
+                <input
+                  required
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+                />
+              </div>
               <button
                 type="submit"
                 disabled={loading}
@@ -250,20 +327,14 @@ export function QuoteForm() {
             </p>
             {!isSubmitted ? (
               <>
-                <p className="mb-2 text-sm text-gray-600">Want an exact quote? Enter your email:</p>
-                <form onSubmit={handleEmailSubmit} className="mt-3 flex gap-2">
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email"
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
-                  />
+                <p className="mb-2 text-sm text-gray-600">
+                  Submit your details and our team will message you with an exact plan.
+                </p>
+                <form onSubmit={handleEmailSubmit} className="mt-3">
                   <button
                     type="submit"
                     disabled={emailLoading}
-                    className="btn-primary disabled:opacity-70"
+                    className="btn-primary w-full disabled:opacity-70"
                   >
                     {emailLoading ? "Sending..." : "Get exact quote"}
                   </button>
@@ -273,8 +344,16 @@ export function QuoteForm() {
             ) : (
               <div className="mt-4 rounded-2xl bg-green-50 p-4 text-center">
                 <p className="font-medium text-green-800">
-                  You&apos;re all set! We&apos;ll reach out shortly.
+                  We&apos;ll contact you on WhatsApp within 30 minutes.
                 </p>
+                <a
+                  href="https://wa.me/917003930780"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-block rounded-full bg-[#25D366] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#1ebe5a]"
+                >
+                  Chat on WhatsApp
+                </a>
               </div>
             )}
           </div>
