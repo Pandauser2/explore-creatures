@@ -28,6 +28,7 @@ export function QuoteForm() {
   );
   const [email, setEmail] = useState("");
   const [openSections, setOpenSections] = useState<Set<string>>(() => new Set());
+  const [submitError, setSubmitError] = useState("");
 
   const toggleSection = (section: string) => {
     setOpenSections((prev) => {
@@ -40,6 +41,22 @@ export function QuoteForm() {
 
   const handleQuoteSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setSubmitError("");
+
+    if (
+      !breed.trim() ||
+      !origin.trim() ||
+      !destination.trim() ||
+      !journeyDate.trim() ||
+      !name.trim() ||
+      !phone.trim() ||
+      !email.trim() ||
+      !email.includes("@")
+    ) {
+      setOpenSections(new Set(["pet", "travel", "contact"]));
+      setSubmitError("Please complete all required details before continuing.");
+      return;
+    }
 
     setLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -52,8 +69,36 @@ export function QuoteForm() {
     const min = Math.round(price * 0.8);
     const max = Math.round(price * 1.2);
 
-    setPriceRange({ min, max });
-    setLoading(false);
+    try {
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          phone,
+          email,
+          origin,
+          destination,
+          pet_type: petType,
+          breed,
+          pet_age: petAge,
+          journey_date: journeyDate,
+          weight: weight.trim() ? weight : undefined
+        }),
+        credentials: "omit"
+      });
+
+      if (!response.ok) {
+        setSubmitError("Unable to submit right now. Please try again.");
+        return;
+      }
+
+      setPriceRange({ min, max });
+    } catch {
+      setSubmitError("Unable to submit right now. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
 
@@ -66,7 +111,7 @@ export function QuoteForm() {
           </IconCircle64>
           Get your pet travel estimate
         </h3>
-        <div className="relative min-h-[340px]">
+        <div className={`relative ${priceRange ? "" : "min-h-[340px]"}`}>
           {!priceRange ? (
             <form
               onSubmit={handleQuoteSubmit}
@@ -226,6 +271,9 @@ export function QuoteForm() {
                       Takes less than 30 seconds • No commitment
                     </p>
                   ) : null}
+                  {submitError ? (
+                    <p className="mt-2 text-center text-xs text-red-600">{submitError}</p>
+                  ) : null}
                 </div>
               </div>
             </div>
@@ -253,7 +301,7 @@ export function QuoteForm() {
         </div>
 
         {priceRange ? (
-          <div className="mt-4 rounded-2xl bg-gray-50 p-5">
+          <div className="mt-4 rounded-2xl bg-gray-50 p-5 text-center">
             <p className="text-sm text-slate-700">Estimated price range</p>
             <p className="text-2xl font-bold text-slate-900">
               ${priceRange.min} - ${priceRange.max}
