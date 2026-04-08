@@ -344,16 +344,8 @@ export function QuoteForm() {
             ) : (
               <div className="mt-4 rounded-2xl bg-green-50 p-4 text-center">
                 <p className="font-medium text-green-800">
-                  We&apos;ll contact you on WhatsApp within 30 minutes.
+                  Thanks for your inquiry. Someone from the team will reach out to you soon.
                 </p>
-                <a
-                  href="https://wa.me/917003930780"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-3 inline-block rounded-full bg-[#25D366] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#1ebe5a]"
-                >
-                  Chat on WhatsApp
-                </a>
               </div>
             )}
           </div>
