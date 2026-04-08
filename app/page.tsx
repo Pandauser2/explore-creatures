@@ -30,8 +30,8 @@ export default async function Page() {
               <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
                 Real customer experience
               </p>
-              <p className="text-lg font-medium leading-relaxed md:text-xl">
-                "One of the most unique wildlife experiences I&apos;ve had."
+              <p className="text-lg md:text-xl font-medium leading-relaxed">
+                {"We discovered wildlife experiences we would've never found on our own."}
               </p>
               <p className="mt-4 text-sm text-gray-600">- Priya Sharma, Happy Customer</p>
             </div>
