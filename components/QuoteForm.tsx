@@ -12,26 +12,6 @@ const petMultipliers = {
 
 type PetType = keyof typeof petMultipliers;
 
-function leadFailureMessage(status: number, serverError?: string): string {
-  if (status === 400 || serverError === "Invalid input") {
-    return "Please check your route, pet, and contact details, then try again.";
-  }
-  if (serverError === "LEAD_WEBHOOK_NOT_CONFIGURED") {
-    return "The server doesn't have your Apps Script /exec URL. Set LEAD_WEB_APP_URL, APPS_SCRIPT_LEAD_URL, or NEXT_PUBLIC_APPS_SCRIPT_LEAD_URL in the host (Vercel: Production + redeploy). See .env.example.";
-  }
-  if (
-    status === 502 ||
-    (serverError?.includes("Upstream") ?? false) ||
-    serverError === "Apps Script rejected the payload"
-  ) {
-    return "We couldn't save your request just now. Please try again in a few minutes.";
-  }
-  if (status >= 500) {
-    return "Quote signup is temporarily unavailable. Please try again later or contact us directly.";
-  }
-  return "Something went wrong. Please try again shortly.";
-}
-
 export function QuoteForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -47,9 +27,6 @@ export function QuoteForm() {
     null
   );
   const [email, setEmail] = useState("");
-  const [emailLoading, setEmailLoading] = useState(false);
-  const [emailMessage, setEmailMessage] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [openSections, setOpenSections] = useState<Set<string>>(() => new Set());
 
   const toggleSection = (section: string) => {
@@ -79,101 +56,6 @@ export function QuoteForm() {
     setLoading(false);
   };
 
-  const handleEmailSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setEmailMessage("");
-    setEmailLoading(true);
-
-    const leadUrl =
-      typeof window !== "undefined"
-        ? new URL("/api/lead", window.location.origin).toString()
-        : "/api/lead";
-
-    const directUrl =
-      process.env.NEXT_PUBLIC_APPS_SCRIPT_LEAD_URL?.trim() ||
-      process.env.NEXT_PUBLIC_LEAD_WEB_APP_URL?.trim();
-
-    const postLead = async (url: string) => {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          phone,
-          email,
-          origin,
-          destination,
-          pet_type: petType,
-          breed,
-          pet_age: petAge,
-          journey_date: journeyDate,
-          weight: weight.trim() ? weight : undefined
-        }),
-        credentials: "omit"
-      });
-      const raw = await response.text();
-      let data: { ok?: boolean; error?: string } = {};
-      if (raw) {
-        try {
-          data = JSON.parse(raw) as { ok?: boolean; error?: string };
-        } catch {
-          /* Apps Script often returns plain text, not JSON */
-        }
-      }
-      return { response, data, raw };
-    };
-
-    const shouldTryDirectAfterProxy = (
-      status: number,
-      alreadySucceeded: boolean
-    ) => {
-      if (!directUrl || alreadySucceeded) return false;
-      if (status === 400) return false;
-      return status === 404 || status === 500 || status === 502 || status === 503;
-    };
-
-    const isLeadSuccess = (proxyOk: boolean, data: { ok?: boolean }, raw: string) => {
-      if (!proxyOk) return false;
-      if (data.ok === false) return false;
-      if (data.ok === true) return true;
-      /* Direct Apps Script: 200 + non-JSON body */
-      return raw.length === 0 || !raw.trim().startsWith("Exception");
-    };
-
-    try {
-      let { response, data, raw } = await postLead(leadUrl);
-
-      if (shouldTryDirectAfterProxy(response.status, isLeadSuccess(response.ok, data, raw))) {
-        ({ response, data, raw } = await postLead(directUrl!));
-      }
-
-      if (!isLeadSuccess(response.ok, data, raw)) {
-        console.error("lead_submit_failed", response.status, data.error, raw.slice(0, 200));
-        setEmailMessage(leadFailureMessage(response.status, data.error));
-        return;
-      }
-
-      setIsSubmitted(true);
-      setEmailMessage("We'll contact you shortly");
-    } catch (error) {
-      if (directUrl) {
-        try {
-          const { response, data, raw } = await postLead(directUrl);
-          if (isLeadSuccess(response.ok, data, raw)) {
-            setIsSubmitted(true);
-            setEmailMessage("We'll contact you shortly");
-            return;
-          }
-        } catch {
-          /* fall through */
-        }
-      }
-      console.error("lead_submit_failed", error);
-      setEmailMessage("Something went wrong. Please try again shortly.");
-    } finally {
-      setEmailLoading(false);
-    }
-  };
 
   return (
     <div id="quote-form" className="w-full">
@@ -377,29 +259,11 @@ export function QuoteForm() {
             <p className="mt-2 text-xs text-slate-600">
               Final pricing depends on route, airline rules, crate type, and paperwork.
             </p>
-            {!isSubmitted ? (
-              <>
-                <p className="mb-2 text-sm text-gray-600">
-                  Submit your details and our team will message you with an exact plan.
-                </p>
-                <form onSubmit={handleEmailSubmit} className="mt-3">
-                  <button
-                    type="submit"
-                    disabled={emailLoading}
-                    className="btn-primary w-full disabled:opacity-70"
-                  >
-                    {emailLoading ? "Sending..." : "Get exact quote"}
-                  </button>
-                </form>
-                {emailMessage ? <p className="mt-2 text-xs text-slate-700">{emailMessage}</p> : null}
-              </>
-            ) : (
-              <div className="mt-4 rounded-2xl bg-green-50 p-4 text-center">
-                <p className="font-medium text-green-800">
-                  Thanks for your inquiry. Someone from the team will reach out to you soon.
-                </p>
-              </div>
-            )}
+            <div className="mt-4 rounded-2xl bg-green-50 p-4 text-center">
+              <p className="font-medium text-green-800">
+                Thanks for your inquiry. Someone from the team will reach out to you soon.
+              </p>
+            </div>
           </div>
         ) : null}
       </div>
